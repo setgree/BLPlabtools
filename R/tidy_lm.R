@@ -40,8 +40,7 @@ tidy_lm <- function(data, dv, terms, treatment = NULL, style = "default", cluste
       x2 %>%
       dplyr::as_tibble() %>%
       mutate(value = ifelse(stringr::str_detect(x2, "\"") == TRUE, str_remove_all(value, "\""), value)) %>%
-      as_vector() %>%
-      unname()
+      dplyr::pull(value)
     x3
   }
 
@@ -210,8 +209,9 @@ tidy_lm <- function(data, dv, terms, treatment = NULL, style = "default", cluste
   }
 
 
-  ## Create Empty Matrix
+  ## Create Empty Matrix with unique column names
   results <- matrix(0, t*length(dv), 3 + l)
+  colnames(results) <- c("model_number", "dv", paste0("var_", seq_len(l)), "lm")
 
   ## Fill Matrix
   ### Row 1 (model number)
@@ -381,8 +381,10 @@ tidy_lm <- function(data, dv, terms, treatment = NULL, style = "default", cluste
     }
   }
 
-  # Replace 0 with NA
-  results[results == "0"] <- NA_real_
+  # Replace 0 with NA in var columns (these are character columns)
+  var_cols <- grep("^var_", names(results), value = TRUE)
+  results <- results %>%
+    dplyr::mutate(dplyr::across(dplyr::all_of(var_cols), ~dplyr::na_if(.x, "0")))
 
   ## include clusters column if clusters exist (necessary for star_ready)
   if (is.null(clusters) == FALSE) {

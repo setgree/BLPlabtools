@@ -9,3 +9,5 @@
 README.html
 vignettes/*.html
 vignettes/*.R
+/doc/
+/Meta/
