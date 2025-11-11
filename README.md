@@ -11,14 +11,18 @@ PaluckTools documents the [Paluck
 lab’s](http://www.betsylevypaluck.com/) approach to conducting
 meta-analyses and analyzing experimental data.
 
-This package integrates functions from three sources: \* PaluckMetaSOP -
-meta-analysis functions featured in “[The Contact Hypothesis
-Re-evaluated](https://doi.org/10.1017/bpp.2018.25)” and “[Preventing
-Sexual Violence —A Behavioral Problem Without a Behaviorally-Informed
-Solution](https://doi.org/10.1177/15291006231221978)” \* blpl -
-John-Henry Pezzuto’s experimental analysis and table formatting tools \*
-Additional helper functions for effect size conversion and data
-preparation
+This package integrates functions from three sources:
+
+- [PaluckMetaSOP](https://github.com/setgree/PaluckMetaSOP) -
+  meta-analysis functions featured in “[The Contact Hypothesis
+  Re-evaluated](https://doi.org/10.1017/bpp.2018.25)” and “[Preventing
+  Sexual Violence —A Behavioral Problem Without a Behaviorally-Informed
+  Solution](https://doi.org/10.1177/15291006231221978)”
+- [blpl](https://github.com/johnhenrypezzuto/blpl) - John-Henry
+  Pezzuto’s experimental analysis and table formatting tools
+- [prejudice-reduction-code-and-data](https://github.com/setgree/prejudice-reduction-code-and-data) -
+  additional helper functions for effect size conversion and data
+  preparation
 
 ## Installation
 
