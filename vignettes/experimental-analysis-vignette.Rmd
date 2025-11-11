@@ -262,35 +262,52 @@ ready_for_table <- star_ready(models, data = experiment_data)
 
 ### 3.2 Table formatting utilities
 
-The package includes 14 utility functions for formatting LaTeX tables. Here are the most useful:
+The package includes 14 utility functions for formatting LaTeX tables. These functions work with LaTeX output captured via `capture.output()` from packages like `stargazer` or `knitr::kable()`.
 
-#### add_parentheses and two_digits
+#### Basic number and text formatting
+
+Format numbers and add brackets/parentheses:
 
 ```{r table_utilities}
-# Format numbers consistently
+# Format numbers consistently to 2 decimal places
 values <- c(0.1543, 2.567, 10.2)
 two_digits(values)
 
-# Add parentheses (useful for standard errors)
+# Add parentheses (useful for standard errors in tables)
 add_parentheses(two_digits(values))
+
+# Add brackets [useful for confidence intervals]
+add_brackets(two_digits(values))
 ```
 
-#### print_table
+**Other basic formatting functions:**
+- `word_italicize()`: Italicize specific words in LaTeX output
 
-A cleaner way to display LaTeX tables in R:
+#### Working with data frames
+
+When preparing data for tables:
+
+- `add_top_row()`: Add a row to the top of a data frame
+- `add_bottom_row()`: Add a row to the bottom of a data frame
+- `nothing()`: Does nothing—useful as a placeholder at the end of pipe chains
+
+#### LaTeX table structure and display
 
 ```{r print_table, eval=FALSE}
-# Instead of manually cat-ing table output
+# Display LaTeX tables cleanly in R console
 library(knitr)
 my_table <- capture.output(kable(head(experiment_data), format = "latex"))
-
-# Use print_table for nicer display
-print_table(my_table)
+print_table(my_table)  # Cleaner than cat()
 ```
 
-#### stargazer_pvalues
+**Other structural functions:**
+- `table_label()`: Add LaTeX labels for cross-referencing (e.g., `\ref{tab:results}`)
+- `table_numbers()`: Customize table numbering (e.g., "Table 2a", "Table 2b")
+- `kable_resize()`: Adjust table size in LaTeX documents
 
-Change how p-values appear in stargazer tables:
+#### Stargazer-specific formatting
+
+Customize stargazer output after creating tables:
 
 ```{r stargazer_pvalues, eval=FALSE}
 # Capture stargazer output
@@ -299,22 +316,26 @@ table_output <- capture.output(
   stargazer(model, report = "csp", type = "latex")
 )
 
-# Change "p = 0.05" format to brackets
+# Change p-value format from "p = 0.05" to [0.05]
 table_with_brackets <- stargazer_pvalues(table_output, "brackets")
 print_table(table_with_brackets)
 ```
 
-### 3.3 Additional formatting functions
+**Other stargazer functions:**
+- `add_endnote()`: Replace stargazer's default notes with custom footnotes
+- `stargazer_rowname()`: Customize row names in stargazer tables
 
-Other useful functions include:
+### 3.3 Typical workflow for publication-ready tables
 
-- `add_endnote()`: Add custom footnotes to tables
-- `add_top_row()` / `add_bottom_row()`: Add rows to data frames
-- `table_label()`: Add LaTeX labels for cross-referencing
-- `table_numbers()`: Customize table numbering (e.g., Table 2a, 2b)
-- `word_italicize()`: Italicize specific words in LaTeX tables
+Most users will need only a few of these functions. A typical workflow:
 
-See `?table_prep` for full documentation of all formatting functions.
+1. **Create your table** with `stargazer()` or `kable()` and capture output
+2. **Format p-values** if needed with `stargazer_pvalues()`
+3. **Add footnotes** with `add_endnote()`
+4. **Add labels** with `table_label()` for cross-referencing
+5. **Preview** with `print_table()` before writing to file
+
+For complete documentation of all formatting functions, see `?table_prep`.
 
 ## 4 Putting it all together
 
