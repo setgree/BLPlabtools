@@ -48,6 +48,60 @@ browseVignettes(package = "PaluckTools")
 We recommend starting with the overview vignette, which will guide you
 to the right workflow for your needs.
 
+## Quick Start
+
+### Convert a t-test to Cohen’s d
+
+``` r
+library(PaluckTools)
+
+# You have: t = 2.5, n_treatment = 30, n_control = 30
+d <- d_calc(stat_type = "t_test", stat = 2.5, n_t = 30, n_c = 30)
+variance <- var_d_calc(stat_type = "t_test", stat = 2.5, n_t = 30, n_c = 30)
+
+# Result: d = 0.645, variance = 0.069
+```
+
+### Run a quick meta-analysis
+
+``` r
+library(dplyr)
+
+# Use built-in contact hypothesis data
+contact_data |>
+  map_robust() |>
+  print()
+
+# Result shows pooled effect size, SE, CI, and heterogeneity
+```
+
+### Get cluster-robust standard errors
+
+``` r
+# Your regression
+model <- lm(outcome ~ treatment + control, data = your_data)
+
+# Add cluster-robust SEs
+robust_results <- robust_se(model, cluster = your_data$school_id)
+robust_results[[2]]  # Coefficient table with robust SEs
+```
+
+### Run multiple regression specifications
+
+``` r
+# Test treatment on multiple outcomes with different controls
+models <- tidy_lm(
+  data = your_data,
+  dv = c("test_score", "attendance", "attitudes"),
+  terms = c("treatment", "baseline_score", "gender"),
+  treatment = "treatment",
+  style = "incremental"  # Progressively adds controls
+)
+
+# Extract treatment effects
+models |> select(dv, treatment_coef, treatment_p)
+```
+
 ## The functions
 
 ### Meta-analysis workflow
