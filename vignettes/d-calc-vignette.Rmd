@@ -44,6 +44,44 @@ The Paluck lab generally prefers Glass's ∆ because we're interested in the eff
 
 When the $SD$ of the control group isn't available but the $SD$ of the entire population is, we use the $SD$ of the entire population. When neither is available, or can't be figured out from a paper's results, we might have a problem. We discuss these issues more in [section 4](#section4).
 
+### 1.3 What your data should look like
+
+Before diving into effect size calculations, it helps to know what columns you'll need in your meta-analytic database. Here's a peek at the `contact_data` structure:
+
+```{r preview_contact_data}
+library(PaluckTools)
+data(contact_data)
+
+# View essential columns for effect size calculation
+contact_data |>
+  select(study, statistic, unstand, sd_c, n_t, n_c, d, var_d, se_d) |>
+  head(3)
+```
+
+**Essential columns you'll need to extract from papers:**
+
+- **`study`**: Study identifier (author, year)
+- **`statistic`**: Type of statistic reported (e.g., "d_i_m", "t_test", "reg_coef")
+- **`unstand`**: The unstandardized statistic value (e.g., t = 2.5, β = 0.366)
+- **`sd_c`**: Standard deviation of control group (when available)
+- **`n_t`** and **`n_c`**: Sample sizes for treatment and control groups
+
+**Columns you'll create with this package's functions:**
+
+- **`d`**: Standardized mean difference (calculated via `d_calc`)
+- **`var_d`**: Variance of effect size (calculated via `var_d_calc`)
+- **`se_d`**: Standard error (square root of `var_d`)
+
+**Optional but recommended columns:**
+
+- **`what`**: Notes on where you found each piece of information (e.g., "Table 3, p. 45")
+- **`unique_study_id`**: Numeric ID for clustering in meta-analysis
+- **Moderator variables**: Any categorical or continuous variables you'll use for subgroup analyses
+
+As you read papers and extract data, you'll fill in the "essential" columns. Then you can use `d_calc` and `var_d_calc` (as shown in [section 5](#section5)) to automatically generate the effect sizes and variances for your entire dataset.
+
+The rest of this vignette walks through examples of calculating effect sizes one study at a time. In practice, you'll eventually automate this process for your entire dataset (see [section 5](#section5)).
+
 ## 2 `d_calc` and `var_d_calc`
 
 ### 2.1 `d_calc`
