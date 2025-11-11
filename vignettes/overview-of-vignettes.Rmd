@@ -52,7 +52,7 @@ Steps 1-3 involve literature review and study selection, covered in other resour
 
 If you're analyzing data from your own experiments (not conducting a meta-analysis), you'll want different tools:
 
-- **[Vignette 4: Experimental analysis and tables](experimental-analysis-vignette.html)** - Covers `tidy_lm` for running multiple regression specifications, `robust_se` for cluster-robust standard errors, and table formatting utilities for creating publication-ready LaTeX tables
+- **[Vignette 4: Experimental analysis and tables](experimental-analysis-vignette.html)** - Covers `tidy_lm_results` for running multiple regression specifications, `robust_se` for cluster-robust standard errors, and table formatting utilities for creating publication-ready LaTeX tables
 
 This vignette demonstrates how to:
 - Run many regression models efficiently

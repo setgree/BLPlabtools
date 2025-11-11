@@ -97,7 +97,7 @@ robust_results[[2]]  # Coefficient table with robust SEs
 
 ``` r
 # Test treatment on multiple outcomes with different controls
-models <- tidy_lm(
+models <- tidy_lm_results(
   data = your_data,
   dv = c("test_score", "attendance", "attitudes"),
   terms = c("treatment", "baseline_score", "gender"),
@@ -138,8 +138,8 @@ models |> select(dv, treatment_coef, treatment_p)
 
 #### Regression analysis:
 
-- `tidy_lm`: Comprehensive function for running multiple regression
-  specifications
+- `tidy_lm_results`: Comprehensive function for running multiple
+  regression specifications
 - `robust_se`: Calculate cluster-robust standard errors
 
 #### Table formatting:
@@ -149,7 +149,7 @@ models |> select(dv, treatment_coef, treatment_p)
   (add_parentheses, add_endnote, stargazer_pvalues, print_table, etc.)
 
 For more documentation, see the vignettes or add a `?` before any
-function (e.g., `?PaluckTools::tidy_lm`).
+function (e.g., `?PaluckTools::tidy_lm_results`).
 
 ## For Paluck Lab members
 
