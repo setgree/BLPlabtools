@@ -27,7 +27,51 @@ We'll cover:
 2. `robust_se` for cluster-robust standard errors
 3. Table formatting utilities for LaTeX output
 
-For demonstration purposes, we'll use the built-in `sv_data` and `contact_data` from our meta-analyses, treating them as if they were experimental datasets.
+## Example data: Growth mindset intervention
+
+For realistic examples, we'll create a simulated dataset from a typical social psychology experiment. Imagine a study testing whether a growth mindset intervention improves student outcomes across 20 schools (100 students per school).
+
+```{r simulate_data}
+library(PaluckTools)
+library(dplyr)
+
+set.seed(123)  # For reproducibility
+
+# Simulate experimental data
+n_schools <- 20
+n_per_school <- 100
+n_total <- n_schools * n_per_school
+
+experiment_data <- data.frame(
+  student_id = 1:n_total,
+  school_id = rep(1:n_schools, each = n_per_school),
+  # Treatment assignment (randomized within schools)
+  treatment = rep(c(rep(0, n_per_school/2), rep(1, n_per_school/2)), n_schools),
+  # Baseline covariates
+  baseline_score = rnorm(n_total, mean = 70, sd = 15),
+  gender = sample(c("female", "male"), n_total, replace = TRUE),
+  # Outcomes (treatment effect = +5 points on average)
+  test_score = 70 + 5*rep(c(rep(0, n_per_school/2), rep(1, n_per_school/2)), n_schools) +
+               rnorm(n_total, sd = 12),
+  attendance = 0.85 + 0.03*rep(c(rep(0, n_per_school/2), rep(1, n_per_school/2)), n_schools) +
+               rnorm(n_total, sd = 0.1),
+  attitudes = 3.5 + 0.3*rep(c(rep(0, n_per_school/2), rep(1, n_per_school/2)), n_schools) +
+              rnorm(n_total, sd = 0.8)
+) |>
+  mutate(
+    treatment = factor(treatment, levels = c(0, 1), labels = c("Control", "Treatment")),
+    gender = factor(gender)
+  )
+
+# Preview the data structure
+head(experiment_data)
+```
+
+This dataset has:
+- **2,000 students** across **20 schools** (clustered data)
+- **Treatment variable**: Growth mindset intervention (Control vs Treatment)
+- **Baseline covariate**: prior test scores, gender
+- **Outcomes**: test scores, attendance rate, attitude scale (1-5)
 
 ## 1 Running multiple regressions with `tidy_lm`
 
@@ -35,108 +79,109 @@ When analyzing experimental data, you often need to run many regression specific
 
 ### 1.1 Basic usage
 
-Let's start with a simple example using `sv_data`:
+Test whether the treatment affects test scores:
 
 ```{r basic_tidy_lm}
-library(PaluckTools)
-library(dplyr)
-
-# Run a simple regression of d on study_design
+# Simple treatment effect
 results <- tidy_lm(
-  data = sv_data,
-  dv = "d",
-  terms = "study_design"
+  data = experiment_data,
+  dv = "test_score",
+  terms = "treatment",
+  treatment = "treatment"
 )
 
-# View the structure
-head(results)
+# View treatment coefficient
+results |> select(dv, treatmentTreatment_coef, treatmentTreatment_p)
 ```
 
-The output is a tidy data frame where each row represents one regression model. The `lm` column contains the actual model object.
+The output is a tidy data frame where each row represents one regression model. The `treatment` parameter extracts coefficients automatically.
 
 ### 1.2 Multiple dependent variables
 
-A common pattern is testing the same predictors on multiple outcomes:
+Test treatment effects across all outcomes simultaneously:
 
 ```{r multiple_dvs}
-# Test study_design on both d and var_d
-results_multi_dv <- tidy_lm(
-  data = sv_data,
-  dv = c("d", "var_d"),
-  terms = "study_design",
-  treatment = "study_design"
+# Test treatment on test scores, attendance, and attitudes
+multi_outcome <- tidy_lm(
+  data = experiment_data,
+  dv = c("test_score", "attendance", "attitudes"),
+  terms = "treatment",
+  treatment = "treatment"
 )
 
-# The treatment parameter extracts coefficients for easy viewing
-head(results_multi_dv |> select(dv, study_design_coef, study_design_p))
+# View treatment effects across all outcomes
+multi_outcome |> select(dv, treatmentTreatment_coef, treatmentTreatment_p)
 ```
 
 ### 1.3 Different regression styles
 
-`tidy_lm` supports different ways of combining your predictors:
+Control for baseline covariates in different ways:
 
 ```{r regression_styles}
-# "default": all terms together
-default_style <- tidy_lm(
-  data = sv_data,
-  dv = "d",
-  terms = c("study_design", "scale_type"),
-  style = "default"
-)
-
-# "bivariate": each term separately
-bivariate_style <- tidy_lm(
-  data = sv_data,
-  dv = "d",
-  terms = c("study_design", "scale_type"),
+# "bivariate": treatment only
+bivariate <- tidy_lm(
+  data = experiment_data,
+  dv = "test_score",
+  terms = "treatment",
   style = "bivariate"
 )
 
-# "incremental": start with first term, progressively add more
-incremental_style <- tidy_lm(
-  data = sv_data,
-  dv = "d",
-  terms = c("study_design", "scale_type"),
+# "incremental": progressively add controls
+incremental <- tidy_lm(
+  data = experiment_data,
+  dv = "test_score",
+  terms = c("treatment", "baseline_score", "gender"),
+  treatment = "treatment",
   style = "incremental"
 )
 
-cat("Default style creates", nrow(default_style), "model(s)\n")
-cat("Bivariate style creates", nrow(bivariate_style), "model(s)\n")
-cat("Incremental style creates", nrow(incremental_style), "model(s)\n")
+# "default": all terms together
+full_model <- tidy_lm(
+  data = experiment_data,
+  dv = "test_score",
+  terms = c("treatment", "baseline_score", "gender"),
+  treatment = "treatment",
+  style = "default"
+)
+
+cat("Bivariate:", nrow(bivariate), "model\n")
+cat("Incremental:", nrow(incremental), "models (adds controls one at a time)\n")
+cat("Default:", nrow(full_model), "model (all controls together)\n")
 ```
 
-### 1.4 Real-world example: Effect moderators
+### 1.4 Real-world workflow: Multiple outcomes with controls
 
-A typical analysis might test whether effects differ by study characteristics:
+A typical analysis tests treatment effects on multiple outcomes, with and without controls:
 
-```{r moderator_analysis, eval=FALSE}
-# Do contact effects vary by target of prejudice?
-contact_models <- tidy_lm(
-  data = contact_data,
-  dv = "d",
-  terms = c("target_spelled_out", "pop_spelled_out"),
-  treatment = c("target_spelled_out", "pop_spelled_out"),
+```{r typical_workflow}
+# Analyze all outcomes with progressive controls
+full_analysis <- tidy_lm(
+  data = experiment_data,
+  dv = c("test_score", "attendance", "attitudes"),
+  terms = c("treatment", "baseline_score", "gender"),
+  treatment = "treatment",
   style = "incremental"
 )
 
-# Extract key coefficients
-contact_models |>
-  select(model_number, starts_with("target"), starts_with("pop")) |>
-  filter(!is.na(target_spelled_out_p))
+# Extract treatment effects across all specifications
+full_analysis |>
+  select(model_number, dv, treatmentTreatment_coef,
+         treatmentTreatment_se, treatmentTreatment_p) |>
+  mutate(significant = treatmentTreatment_p < 0.05)
 ```
 
 ## 2 Cluster-robust standard errors
 
+Our students are clustered within schools, so we need cluster-robust standard errors to account for within-school correlation.
+
 ### 2.1 Using `robust_se`
 
-When your data has clustering (e.g., multiple observations per study or school), you need cluster-robust standard errors:
+```{r robust_se}
+# Basic regression (ignores clustering)
+model <- lm(test_score ~ treatment + baseline_score, data = experiment_data)
 
-```{r robust_se, eval=FALSE}
-# Basic regression
-model <- lm(d ~ study_design + scale_type, data = sv_data)
-
-# Get cluster-robust SEs (clustering by unique_study_id)
-robust_results <- robust_se(model, cluster = sv_data$unique_study_id)
+# Get cluster-robust SEs (clustering by school)
+robust_results <- robust_se(model, cluster = experiment_data$school_id)
 
 # robust_results is a list with:
 # [[1]]: variance-covariance matrix
@@ -145,20 +190,26 @@ robust_results <- robust_se(model, cluster = sv_data$unique_study_id)
 robust_results[[2]]
 ```
 
+Notice the standard errors are typically larger than classical SEs, reflecting within-cluster correlation.
+
 ### 2.2 Incorporating clusters into `tidy_lm`
 
-You can also specify clusters directly in `tidy_lm`:
+For multiple specifications with clustering, use `tidy_lm` directly:
 
-```{r tidy_lm_clusters, eval=FALSE}
+```{r tidy_lm_clusters}
+# Run multiple specifications with clustering
 clustered_models <- tidy_lm(
-  data = sv_data,
-  dv = "d",
-  terms = c("study_design", "scale_type"),
-  treatment = "study_design",
-  clusters = unique_study_id
+  data = experiment_data,
+  dv = c("test_score", "attendance"),
+  terms = c("treatment", "baseline_score", "gender"),
+  treatment = "treatment",
+  clusters = school_id,
+  style = "incremental"
 )
 
-# The clusters are handled automatically in the model fitting
+# Extract treatment effects (now with cluster-robust SEs)
+clustered_models |>
+  select(dv, model_number, treatmentTreatment_coef, treatmentTreatment_se, treatmentTreatment_p)
 ```
 
 ## 3 Preparing tables for publication
@@ -170,14 +221,14 @@ The `star_ready` function prepares `tidy_lm` output for use with the `stargazer`
 ```{r star_ready_demo, eval=FALSE}
 # First, run your models
 models <- tidy_lm(
-  data = sv_data,
-  dv = "d",
-  terms = c("study_design", "scale_type"),
+  data = experiment_data,
+  dv = "test_score",
+  terms = c("treatment", "baseline_score"),
   style = "incremental"
 )
 
 # Prepare for stargazer
-ready_for_table <- star_ready(models, data = sv_data)
+ready_for_table <- star_ready(models, data = experiment_data)
 
 # Now use with stargazer (not run here to avoid LaTeX output)
 # library(stargazer)
@@ -206,7 +257,7 @@ A cleaner way to display LaTeX tables in R:
 ```{r print_table, eval=FALSE}
 # Instead of manually cat-ing table output
 library(knitr)
-my_table <- capture.output(kable(head(sv_data), format = "latex"))
+my_table <- capture.output(kable(head(experiment_data), format = "latex"))
 
 # Use print_table for nicer display
 print_table(my_table)
@@ -218,7 +269,7 @@ Change how p-values appear in stargazer tables:
 
 ```{r stargazer_pvalues, eval=FALSE}
 # Capture stargazer output
-model <- lm(d ~ study_design, data = sv_data)
+model <- lm(test_score ~ treatment, data = experiment_data)
 table_output <- capture.output(
   stargazer(model, report = "csp", type = "latex")
 )
@@ -247,16 +298,16 @@ Here's a complete workflow from analysis to publication-ready table:
 ```{r complete_workflow, eval=FALSE}
 # 1. Run your regressions
 models <- tidy_lm(
-  data = sv_data |> filter(!is.na(study_design)),
-  dv = c("d", "var_d"),
-  terms = c("study_design", "scale_type", "delay"),
-  treatment = c("study_design", "scale_type"),
+  data = experiment_data,
+  dv = c("test_score", "attendance"),
+  terms = c("treatment", "baseline_score", "gender"),
+  treatment = "treatment",
   style = "incremental",
-  clusters = unique_study_id
+  clusters = school_id
 )
 
 # 2. Prepare for stargazer
-table_ready <- star_ready(models, data = sv_data)
+table_ready <- star_ready(models, data = experiment_data)
 
 # 3. Create table
 library(stargazer)
@@ -264,8 +315,8 @@ raw_table <- capture.output(
   stargazer(
     table_ready,
     type = "latex",
-    title = "Effect of interventions by study design",
-    dep.var.labels = c("Effect size (d)", "Variance"),
+    title = "Effect of growth mindset intervention on student outcomes",
+    dep.var.labels = c("Test Score", "Attendance"),
     notes = "Placeholder note text"
   )
 )
@@ -273,7 +324,7 @@ raw_table <- capture.output(
 # 4. Format the table
 formatted_table <- raw_table |>
   add_endnote(
-    note = "Standard errors clustered by study. All models control for scale type and delay.",
+    note = "Standard errors clustered by school. All models control for baseline scores and gender.",
     size_in_inches = 6,
     rm.stargazer.stars = TRUE
   ) |>
