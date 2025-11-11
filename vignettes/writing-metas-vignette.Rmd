@@ -65,57 +65,51 @@ sv_data |> split(~study_design) |> map(study_count) |>
 
 ### 2 Turning a database of studies into a bibliography file
 
-This function isn't quite "ready to go" enough to make it into the package as an independent function, but the basic idea is to take a list of DOIs and turn it into a bibliography. It is a wrapper around `RefManageR::WriteBib` that enables you to turn a list of DOI into a .bib file with an bibTeX entry for each DOI.
+The `make_bib()` function takes a data frame containing DOI information and creates a BibTeX (.bib) file. This is a wrapper around `RefManageR::WriteBib()` that fetches bibliographic information for each DOI and writes it to a .bib file suitable for use with LaTeX.
 
-To make use of this, you would include a column of DOIs or URLs for every study in your database. Neither of this package's built-in datasets has this, but let's use a different dataset to demonstrate.
+To use this function, you need a column of DOIs in your meta-analytic database. Neither `contact_data` nor `sv_data` has DOI information, but the `map_reduction_data` dataset does. This dataset comes from a meta-analysis of interventions to reduce consumption of meat and animal products (Green et al., 2025) and is included in this package specifically to demonstrate the `make_bib()` function.
 
-We'll also set `eval` to `F` so it doesn't continually re-run when the vignette builds (running this requires an API call). 
+**Note:** We'll set `eval = FALSE` so this doesn't continually re-run when the vignette builds, since it requires API calls to DOI.org.
 
-```{r bib_stuff, eval=F}
+```{r bib_stuff, eval=FALSE}
+library(dplyr)
 
-dat_with_dois <- structure(list(author = c("Abrahamse", "Alblas", "Allen", "Berndsen", 
-"Berndsen", "Berndsen", "Bianchi", "Coker", "Feltz", "Feltz", 
-"Feltz", "Feltz", "Jalil", "Lacroix", "Piester", "Piester", "Piester", 
-"Sparkman", "Sparkman", "Sparkman", "Sparkman", "Sparkman", "Sparkman", 
-"Sparkman"), year = c(2007L, 2023L, 2002L, 2005L, 2005L, 2005L, 
-2022L, 2022L, 2022L, 2022L, 2022L, 2022L, 2023L, 2020L, 2020L, 
-2020L, 2020L, 2017L, 2017L, 2021L, 2021L, 2021L, 2021L, 2021L
-), doi = c("10.1016/j.jenvp.2007.08.002", "10.1080/17524032.2022.2149587", 
-"10.1006/appe.2001.0474", "10.1016/j.appet.2004.10.003", "10.1016/j.appet.2004.10.003", 
-"10.1016/j.appet.2004.10.003", "10.1093/ajcn/nqab414", "10.1016/j.appet.2021.105824", 
-"10.1016/j.appet.2022.105981", "10.1016/j.appet.2022.105981", 
-"10.1016/j.appet.2022.105981", "10.1016/j.appet.2022.105981", 
-"10.1038/s43016-023-00712-1", "10.1016/j.foodqual.2020.103997", 
-"10.1016/j.appet.2020.104842", "10.1016/j.appet.2020.104842", 
-"10.1016/j.appet.2020.104842", "10.1177/0956797617719950", "10.1177/0956797617719950", 
-"10.1016/j.jenvp.2021.101592", "10.1016/j.jenvp.2021.101592", 
-"10.1016/j.jenvp.2021.101592", "10.1016/j.jenvp.2021.101592", 
-"10.1016/j.jenvp.2021.101592")), class = "data.frame", row.names = c(NA, 
--24L))
+# Load the MAP reduction dataset
+data(map_reduction_data)
 
-manage_references <- function(dat_with_dois, bib_file = './refs.bib') {
+# Preview the data structure
+map_reduction_data |>
+  select(author, year, title, doi) |>
+  head(5)
 
-  # Write bibs into bib file
-  for (entry in dat_with_dois$doi) {
-    RefManageR::WriteBib(bib = RefManageR::GetBibEntryWithDOI(doi = entry),
-                         file = bib_file,
-                         append = TRUE)
-  }
+# Filter for entries with valid DOIs (start with "10.")
+map_with_dois <- map_reduction_data |>
+  filter(grepl("^10\\.", doi)) |>
+  distinct(doi, .keep_all = TRUE)
 
-  # Function to add DOI to the BibTeX file
-  add_doi_to_bib <- function(new_doi) {
-    RefManageR::WriteBib(bib = RefManageR::GetBibEntryWithDOI(new_doi),
-                         file = bib_file,
-                         append = TRUE)
-  }
+cat("Found", nrow(map_with_dois), "unique DOIs\n")
 
-  # Return the function to add DOIs to the BibTeX file
-  return(list(add_doi_to_bib = add_doi_to_bib))
-}
+# Generate bibliography
+make_bib(
+  data = map_with_dois,
+  doi_column = "doi",
+  bib_file = "./references.bib",
+  verbose = TRUE
+)
 
-manage_references(dat_with_dois = dat_with_dois)
+# The function will:
+# 1. Extract unique DOIs from the specified column
+# 2. Fetch bibliographic information from DOI.org
+# 3. Write each entry to the .bib file
+# 4. Print progress messages
 
+# You can also manually add individual DOIs:
+# Create a simple data frame with a DOI
+extra_doi <- data.frame(doi = "10.1016/j.appet.2025.108233")
+make_bib(extra_doi, bib_file = "./references.bib", overwrite = FALSE)
 ```
+
+The resulting .bib file can be used directly in your LaTeX document with `\bibliography{references}`.
 
 ## 3 Visualizations
 
