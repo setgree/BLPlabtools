@@ -4,3 +4,8 @@
 .Ruserdata
 .DS_Store
 *.DS_Store
+
+# R Markdown build artifacts
+README.html
+vignettes/*.html
+vignettes/*.R
