@@ -18,19 +18,18 @@ License: MIT + file LICENSE
 Depends:
     R (>= 4.1)
 Imports:
-    broom,
     dplyr (>= 1.1),
     estimatr,
     lmtest,
     metafor (>= 4.6),
     multiwayvcov,
-    purrr,
     rlang (>= 1.1),
     sandwich,
     sessioninfo,
     stringr,
     tibble (>= 3.2)
 Suggests:
+    broom,
     forcats (>= 1.0),
     ggplot2 (>= 3.5),
     ggrepel (>= 0.5),
@@ -39,6 +38,7 @@ Suggests:
     gt (>= 0.10),
     knitr (>= 1.4),
     patchwork (>= 1.2),
+    purrr,
     RefManageR (>= 1.4),
     rmarkdown (>= 2.26),
     testthat (>= 3.0.0),
