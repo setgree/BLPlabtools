@@ -7,19 +7,25 @@
 add_endnote(table, note, size_in_inches = 6, rm.stargazer.stars = TRUE)
 }
 \arguments{
+\item{table}{A LaTeX table from capture.output()}
+
 \item{note}{Endnote you want to add to the bottom of the table}
 
 \item{size_in_inches}{How many inches long the endnote should be}
 
 \item{rm.stargazer.stars}{TRUE/FALSE. Whether to remove the default stargazer Note: that includes the starvalues.}
 }
+\value{
+A character vector representing the LaTeX table with endnote added
+}
 \description{
 Improvement to footnotes from \code{stargazer} function. Results vary with output from \code{kable}, although the kable endnotes by default tend to be better formatted.
 Used with \code{capture.output()}. When using, notes made with the original function should not be used.
 }
 \examples{
-
+\dontrun{
 my_table_rough <- capture.output(stargazer(mtcars))
 my_table <- add_endnote(table = my_table_rough, note = "my endnote is very long", size_in_inches = 6, rm.stargazer.stars = TRUE)
 print_table(table)
+}
 }

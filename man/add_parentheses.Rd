@@ -7,13 +7,15 @@
 add_parentheses(vector)
 }
 \arguments{
-\item{vector}{}
+\item{vector}{A vector of values to add parentheses around}
+}
+\value{
+A character vector with parentheses added
 }
 \description{
 Adds parenthesis to input
 }
 \examples{
 add_parentheses(45)
-(45)
 
 }

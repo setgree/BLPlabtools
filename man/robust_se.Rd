@@ -7,8 +7,13 @@
 robust_se(model, cluster)
 }
 \arguments{
-\item{cluster}{What variable should the data be clustered by}
+\item{model}{A fitted linear model object (from lm())}
+
+\item{cluster}{A vector indicating cluster membership for computing robust SEs}
+}
+\value{
+A list with two elements: the robust covariance matrix and coefficient test results
 }
 \description{
-Robust Standard Error
+Calculate cluster-robust standard errors for linear models
 }

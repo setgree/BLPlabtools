@@ -7,7 +7,12 @@
 add_top_row(data, value = NA_real_)
 }
 \arguments{
-\item{data}{}
+\item{data}{A data frame}
+
+\item{value}{Value to fill the new row with (default: NA_real_)}
+}
+\value{
+A data frame with an additional row at the top
 }
 \description{
 Add an empty row on top of a \code{dataframe}

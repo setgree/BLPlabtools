@@ -7,12 +7,15 @@
 add_brackets(vector)
 }
 \arguments{
-\item{vector}{}
+\item{vector}{A vector of values to add brackets around}
+}
+\value{
+A character vector with brackets added
 }
 \description{
 Adds brackets to input
 }
 \examples{
 add_brackets(45)
- [45]
+
 }

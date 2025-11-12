@@ -9,11 +9,11 @@
 A comprehensive toolkit for meta-analysis and experimental data analysis developed by the BLP Lab. Provides functions for converting effect sizes from various statistical reports into standardized formats (Cohen's D, Glass's Delta), performing robust meta-analyses with clustered standard errors, creating publication-ready forest plots and tables, and ensuring computational reproducibility through Docker integration. Designed for social psychology research but broadly applicable to experimental and meta-analytic work.
 }
 \author{
-\strong{Maintainer}: Seth Green \email{sag2212@columbia.edu} (\href{https://orcid.org/0000-0003-3909-1969}{ORCID})
+\strong{Maintainer}: Seth Ariel Green \email{setgree@stanford.edu} (\href{https://orcid.org/0000-0003-3909-1969}{ORCID})
 
 Authors:
 \itemize{
-  \item John-Henry Pezzuto (\href{https://orcid.org/0000-0001-5213-4201}{ORCID})
+  \item John-Henry Pezzuto \email{jdp2150@columbia.edu} (\href{https://orcid.org/0000-0001-5213-4201}{ORCID})
 }
 
 }

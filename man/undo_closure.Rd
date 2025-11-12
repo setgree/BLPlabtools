@@ -7,7 +7,10 @@
 undo_closure(data)
 }
 \arguments{
-\item{data}{}
+\item{data}{A character vector with enclosing characters}
+}
+\value{
+A character vector with first and last character removed
 }
 \description{
 Removes one character from each side of a \code{string}. Useful for undoing functions like \code{add_parentheses} or \code{add_brackets}.

@@ -9,18 +9,22 @@ table_label(latex_table, caption)
 \arguments{
 \item{latex_table}{Table from \code{capture.output()}}
 
-\item{caption}{}
+\item{caption}{Caption text for the table label}
+}
+\value{
+A character vector representing the LaTeX table with label added
 }
 \description{
 Adds labels to LaTeX tables that have are stored as a vector (e.g. output from \code{kable()} or \code{stargazer()} which is stored by \code{capture.output()}). Labels cannot be seen within the table,
 but rather can be referenced within a rmarkdown document via \verb{\\label\{tab:your_label_here\}}
 }
 \examples{
-
+\dontrun{
 my_table_rough <- capture.output(stargazer(mtcars))
 my_table <- table_label(my_table_rough, "demographics")
 print_table(table)
 
 # Within Markdown Document
 `\\label{tab:demographics}` # this will print as Table 1, and update depending on the order of the tables.
+}
 }

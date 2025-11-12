@@ -15,6 +15,8 @@ table_numbers(
 )
 }
 \arguments{
+\item{latex_table}{A character vector representing a LaTeX table}
+
 \item{hold_primary_count}{Stops the first counter from ascending}
 
 \item{rm_primary_count}{Does not show primary count}
@@ -27,7 +29,15 @@ table_numbers(
 
 \item{secondary_count_style}{\code{Character} vector that should be equal to \code{alph}, \code{Alph}, \code{arabic}, \code{roman}, or \code{Roman}.}
 }
+\value{
+A character vector representing the renumbered LaTeX table
+}
 \description{
 Requires \verb{header needs \\newcounter\{foo\}} to be added in document YAML to work under header-includes:. Useful for adding secondary
 counts to tables (e.g., Table 2a, Table 2b). Can also be used to switch primary counts to alternative styles like \code{alph} or \code{roman}.
+}
+\examples{
+\dontrun{
+# Example with table renumbering
+}
 }

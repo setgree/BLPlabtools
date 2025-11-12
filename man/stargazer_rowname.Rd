@@ -7,9 +7,14 @@
 stargazer_rowname(table, row_name, row_number)
 }
 \arguments{
+\item{table}{A LaTeX table from stargazer}
+
 \item{row_name}{Name for row}
 
 \item{row_number}{Which row number to add the name to. Best determined by looking at the object created by \code{capture.output()}}
+}
+\value{
+A character vector representing the modified LaTeX table
 }
 \description{
 Manually adds rownames to in first column

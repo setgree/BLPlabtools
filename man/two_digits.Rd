@@ -7,14 +7,15 @@
 two_digits(data)
 }
 \arguments{
-\item{data}{}
+\item{data}{Numeric vector to round to two decimal places}
+}
+\value{
+A character vector of rounded values with exactly two decimal places
 }
 \description{
 Rounds numbers two the second digit, and returns them as a \code{character} in two digits. Useful for number consistency during visualization.
 }
 \examples{
 two_digits(4.5664)
-"4.57"
 two_digits(0.1)
-"0.10"
 }

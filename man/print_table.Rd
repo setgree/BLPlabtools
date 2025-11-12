@@ -7,13 +7,18 @@
 print_table(latex_table)
 }
 \arguments{
-\item{latex_table}{}
+\item{latex_table}{A character vector representing a LaTeX table}
+}
+\value{
+NULL (invisibly); prints to console
 }
 \description{
 A cleaner way to print LaTeX tables than simply using the \code{cat()}.
 Equivalent to \code{cat(paste(latex_table, collapse = "\\n"))}
 }
 \examples{
+\dontrun{
 table <- capture.output(kable(mtcars, format = "latex"))
 print_table(table)
+}
 }

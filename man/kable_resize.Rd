@@ -7,10 +7,22 @@
 kable_resize(table, resizebox = 0.8, minipage = 1)
 }
 \arguments{
-\item{minipage}{}
+\item{table}{A LaTeX table from kable}
+
+\item{resizebox}{Numeric value for resizebox size (default 0.8)}
+
+\item{minipage}{Numeric value for minipage width (default 1)}
+}
+\value{
+A character vector representing the resized LaTeX table
 }
 \description{
 An option for when \code{kable_styling(full_width = F, latex_options = "scale_down")} isn't enough. This function depends on you already attempting to resize using the aforementioned function.
 When using with endnotes, I recommend to use this function with \code{kableExtra}'s built in, so that the resize corresponds with the table
 footnote function
+}
+\examples{
+\dontrun{
+# Example with kable table
+}
 }

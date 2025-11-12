@@ -7,7 +7,12 @@
 add_bottom_row(data, value = NA_real_)
 }
 \arguments{
-\item{data}{}
+\item{data}{A data frame}
+
+\item{value}{Value to fill the new row with (default: NA_real_)}
+}
+\value{
+A data frame with an additional row at the bottom
 }
 \description{
 Adds an empty row to the bottom of a \code{dataframe}

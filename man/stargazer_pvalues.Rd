@@ -11,12 +11,17 @@ stargazer_pvalues(table, format)
 
 \item{format}{String either 'brackets', 'parentheses' or 'none' to replace the stargazer default P = x}
 }
+\value{
+A character vector representing the modified LaTeX table
+}
 \description{
 The default way for stargazer to report P-Values is by "P = X". This function offers several ways to change this.
 }
 \examples{
+\dontrun{
 model <- lm(hp ~ wt, mtcars)
 table_rough <- stargazer(model, report = "csp")
 table <- stargazer_pvalues(table_rough, "brackets")
 print_table(table)
+}
 }

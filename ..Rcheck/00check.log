@@ -7,7 +7,7 @@
 * running under: macOS 15.6
 * using session charset: UTF-8
 * checking for file ‘./DESCRIPTION’ ... ERROR
-Required field missing or empty:
-  ‘Author’
+Required fields missing or empty:
+  ‘Author’ ‘Maintainer’
 * DONE
 Status: 1 ERROR

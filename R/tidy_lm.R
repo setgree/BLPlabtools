@@ -15,6 +15,7 @@
 #' @param clusters Clusters for grouping standard error.
 #' @param robust_se TRUE/FALSE. Whether to use to use robust standard errors ("HC2"). Equivalent to default standard error from lm_robust(). Set to FALSE by default.
 #' @param alpha Numeric p-value for the standard errors. Default .05.
+#' @param multiple_testing Method for multiple testing correction (optional)
 #' @param print_summary TRUE/FALSE. Whether to print model summaries or not. Default is FALSE.
 #' @param data A `data.frame`
 #' @export

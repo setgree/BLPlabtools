@@ -18,7 +18,7 @@ To do meta-analysis, you must first extract two pieces of information from each 
 
 This vignette walks through that process using the functions `d_calc` and `var_d_calc`, with examples drawn from [The Contact Hypothesis Re-evaluated](https://doi.org/10.1017/bpp.2018.25).
 
-The contact hypothesis meta-analytic dataset is included, with small adjustments, in this package as `PaluckMetaSOP::contact_data`. [The Contact Hypothesis Re-evaluated](https://doi.org/10.1017/bpp.2018.25)'s supplementary materials, including all studies discussed here, are available on the [Open Science Framework](https://osf.io/ttpvy/?view_only=https://osf.io/ttpvy/?view_only=).
+The contact hypothesis meta-analytic dataset is included, with small adjustments, in this package as `BLPlabtools::contact_data`. [The Contact Hypothesis Re-evaluated](https://doi.org/10.1017/bpp.2018.25)'s supplementary materials, including all studies discussed here, are available on the [Open Science Framework](https://osf.io/ttpvy/?view_only=https://osf.io/ttpvy/?view_only=).
 
 Before we show you how to calculate these numbers, let's talk about what they mean.
 
@@ -123,7 +123,7 @@ The five parameters are:
 
     -   These are only necessary when you are converting the results of an F test or t-statistic into SMDs.
 
-To see all the conversion formulas, run `PaluckMetaSOP::d_calc` (without parentheses).
+To see all the conversion formulas, run `BLPlabtools::d_calc` (without parentheses).
 
 ### 2.2 `var_d_calc`
 
@@ -149,11 +149,11 @@ Standard error ($SE$) is the square root of variance. For meta-analysis, you typ
 
 ## 3 Calculating $\Delta$ and $\sigma^2$ with `d_calc` and `var_d_calc`
 
-We now load the `PaluckMetaSOP` library, which has the `d_calc` and `var_d_calc` functions. We'll also load the `contact_data` dataset from [The Contact Hypothesis Re-evaluated](https://doi.org/10.1017/bpp.2018.25) for reference.
+We now load the `BLPlabtools` library, which has the `d_calc` and `var_d_calc` functions. We'll also load the `contact_data` dataset from [The Contact Hypothesis Re-evaluated](https://doi.org/10.1017/bpp.2018.25) for reference.
 
-```{r PaluckMetaSOP}
+```{r BLPlabtools}
 
-library(PaluckMetaSOP)
+library(BLPlabtools)
 data(contact_data)
 ```
 
@@ -385,11 +385,11 @@ difference_in_proportion_calc <- function(p1, p2) {
 odds_ratio_to_d(.6, .3) 
 difference_in_proportion_calc(.6, .3)  # pretty similar
 # alternatively, use d_calc
-PaluckMetaSOP::d_calc("d_i_p", 0.6 - 0.3, 0.3)
+BLPlabtools::d_calc("d_i_p", 0.6 - 0.3, 0.3)
 
 # with smaller numbers?
 odds_ratio_to_d(p1 = 0.06, p2 = 0.03)
-PaluckMetaSOP::d_calc("d_i_p", 0.06 - 0.03, 0.03)
+BLPlabtools::d_calc("d_i_p", 0.06 - 0.03, 0.03)
 # pretty different
 
 ```

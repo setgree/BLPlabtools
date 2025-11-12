@@ -23,7 +23,7 @@ Once again, we'll illustrate with data from two previous meta-analyses: `sv_data
 `summarise_lm` takes the built in R functions `summary(lm())` and lets you use them in a sequence of pipes. In particular this is useful when you want to test for the magnitude of a relationship between two variables in many different subsets of data at once.
 
 ```{r summarise_lm demonstration}
-library(PaluckMetaSOP)
+library(BLPlabtools)
 sv_data |> summarise_lm()
 
 # now in different subsets
@@ -45,7 +45,7 @@ table(sv_data$behavior_type)
 sv_data |> summarise_table(behavior_type)
 
 # where this really becomes useful is something like:
-PaluckMetaSOP::sv_data |> split(~study_design) |>
+BLPlabtools::sv_data |> split(~study_design) |>
 map(~ summarise_table(., behavior_type)) |> bind_rows(.id = "study_design")
 
 # Note: summarise_table() returns a table object. For more complex manipulations,

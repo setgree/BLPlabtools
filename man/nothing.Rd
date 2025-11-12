@@ -7,7 +7,10 @@
 nothing(data)
 }
 \arguments{
-\item{data}{}
+\item{data}{Any R object}
+}
+\value{
+The input data unchanged
 }
 \description{
 Does nothing. Useful as an anchor on the bottom row while editing using \verb{|>}.

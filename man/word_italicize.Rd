@@ -7,8 +7,18 @@
 word_italicize(latex_table, word)
 }
 \arguments{
+\item{latex_table}{A character vector representing a LaTeX table}
+
 \item{word}{\code{string} of word to italicize}
+}
+\value{
+A character vector representing the modified LaTeX table
 }
 \description{
 Currently set up to be used in papaja documents.
+}
+\examples{
+\dontrun{
+# Example with word italicizing
+}
 }

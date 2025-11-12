@@ -27,7 +27,7 @@ The main function in this vignette is called `map_robust`. We'll demonstrate how
 `map_robust` takes a dataset and returns a data frame with an N of the number of data points; an N for the number of studies; a ∆ signifying the pooled effect size; a standard error; and a p value.
 
 ```{r single_pooled_eff_size}
-library(PaluckMetaSOP)
+library(BLPlabtools)
 sv_data |> map_robust()
 ```
 
@@ -44,7 +44,7 @@ Our function is different in a few respects. First, it's designed to take in a d
 
 Clustering accounts for the fact that multiple effect sizes from the same study are not independent—they share the same participants, setting, and research team. By clustering at the study level, we get more accurate standard errors that account for this dependence.
 
-Our meta-analyses cluster at the level of study. You could also cluster at the level of a paper, or of a team of authors, or at no level at all. If you run our function on a dataset where each unique_study_id corresponds to only one row in the dataset, it's equivalent to not clustering. We'll demonstrate that with `PaluckMetaSOP::contact_data`:
+Our meta-analyses cluster at the level of study. You could also cluster at the level of a paper, or of a team of authors, or at no level at all. If you run our function on a dataset where each unique_study_id corresponds to only one row in the dataset, it's equivalent to not clustering. We'll demonstrate that with `BLPlabtools::contact_data`:
 
 ```{r contact_data_demonstration}
 library(dplyr)
