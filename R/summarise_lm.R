@@ -21,11 +21,11 @@
 #'
 #' @examples
 #' # example 1: entire dataset
-#' PaluckTools::contact_data |> summarise_lm()
+#' BLP_lab_tools::contact_data |> summarise_lm()
 #' # example 2: split and apply to many subsets
 #' \dontrun{
 #' library(purrr)
-#' PaluckTools::sv_data |> split(~study_design) |> map(summarise_lm)
+#' BLP_lab_tools::sv_data |> split(~study_design) |> map(summarise_lm)
 #'}
 
 summarise_lm <- function(dataset, y = NULL, x = NULL, coefs_only = TRUE, dgts = 5) {

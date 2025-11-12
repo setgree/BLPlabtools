@@ -14,9 +14,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-## 1 What is PaluckTools?
+## 1 What is BLP_lab_tools?
 
-PaluckTools provides functions and workflows for two main types of research in social psychology:
+BLP_lab_tools provides functions and workflows for two main types of research in social psychology:
 
 1. **Meta-analysis**: Systematically combining results from multiple studies
 2. **Experimental analysis**: Analyzing data from your own experiments

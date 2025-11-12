@@ -1,14 +1,11 @@
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
-# PaluckTools
+# BLP_lab_tools
 
 <!-- badges: start -->
 
 <!-- badges: end -->
 
-PaluckTools documents the [Paluck
-lab’s](http://www.betsylevypaluck.com/) approach to conducting
+BLP_lab_tools documents the [BLP
+lab's](http://www.betsylevypaluck.com/) approach to conducting
 meta-analyses and analyzing experimental data.
 
 This package integrates functions from three sources:
@@ -29,7 +26,7 @@ This package integrates functions from three sources:
 Run the following R command:
 
 ``` r
-remotes::install_github('setgree/PaluckTools', build_vignettes = TRUE)
+remotes::install_github('setgree/BLP_lab_tools', build_vignettes = TRUE)
 ```
 
 ## What you’ll find
@@ -49,7 +46,7 @@ This package contains:
 After installation, run:
 
 ``` r
-browseVignettes(package = "PaluckTools")
+browseVignettes(package = "BLP_lab_tools")
 ```
 
 We recommend starting with the overview vignette, which will guide you
@@ -60,7 +57,7 @@ to the right workflow for your needs.
 ### Convert a t-test to Cohen’s d
 
 ``` r
-library(PaluckTools)
+library(BLP_lab_tools)
 
 # You have: t = 2.5, n_treatment = 30, n_control = 30
 d <- d_calc(stat_type = "t_test", stat = 2.5, n_t = 30, n_c = 30)
@@ -149,16 +146,16 @@ models |> select(dv, treatment_coef, treatment_p)
   (add_parentheses, add_endnote, stargazer_pvalues, print_table, etc.)
 
 For more documentation, see the vignettes or add a `?` before any
-function (e.g., `?PaluckTools::tidy_lm`).
+function (e.g., `?BLP_lab_tools::tidy_lm`).
 
-## For Paluck Lab members
+## For BLP Lab members
 
 To contribute:
 
 1.  Clone this package:
 
     ``` bash
-    git clone https://github.com/setgree/PaluckTools.git
+    git clone https://github.com/setgree/BLP_lab_tools.git
     ```
 
 2.  Add or amend functions and vignettes
