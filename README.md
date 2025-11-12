@@ -1,10 +1,10 @@
-# BLP_lab_tools
+# BLPlabtools
 
 <!-- badges: start -->
 
 <!-- badges: end -->
 
-BLP_lab_tools documents the [BLP
+BLPlabtools documents the [BLP
 lab's](http://www.betsylevypaluck.com/) approach to conducting
 meta-analyses and analyzing experimental data.
 
@@ -30,7 +30,7 @@ This package integrates functions from three sources:
 ## Installation
 
 ``` r
-remotes::install_github('setgree/BLP_lab_tools', build_vignettes = TRUE)
+remotes::install_github('setgree/BLPlabtools', build_vignettes = TRUE)
 ```
 
 ## What you’ll find
@@ -50,7 +50,7 @@ This package contains:
 After installation, run:
 
 ``` r
-browseVignettes(package = "BLP_lab_tools")
+browseVignettes(package = "BLPlabtools")
 ```
 
 We recommend starting with the overview vignette, which will guide you
@@ -61,7 +61,7 @@ to the right workflow for your needs.
 ### Convert a t-test to Cohen’s d
 
 ``` r
-library(BLP_lab_tools)
+library(BLPlabtools)
 
 # You have: t = 2.5, n_treatment = 30, n_control = 30
 d <- d_calc(stat_type = "t_test", stat = 2.5, n_t = 30, n_c = 30)
@@ -150,7 +150,7 @@ models |> select(dv, treatment_coef, treatment_p)
   (add_parentheses, add_endnote, stargazer_pvalues, print_table, etc.)
 
 For more documentation, see the vignettes or add a `?` before any
-function (e.g., `?BLP_lab_tools::tidy_lm`).
+function (e.g., `?BLPlabtools::tidy_lm`).
 
 ## For BLP Lab members
 
@@ -159,7 +159,7 @@ To contribute:
 1.  Clone this package:
 
     ``` bash
-    git clone https://github.com/setgree/BLP_lab_tools.git
+    git clone https://github.com/setgree/BLPlabtools.git
     ```
 
 2.  Add or amend functions and vignettes

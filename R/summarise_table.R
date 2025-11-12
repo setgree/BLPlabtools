@@ -17,11 +17,11 @@
 #' @export
 #' @examples
 #' # simple example: entire dataset
-#' BLP_lab_tools::sv_data |> summarise_table(behavior_type)
+#' BLPlabtools::sv_data |> summarise_table(behavior_type)
 #' \dontrun{
 #' # example with split and apply to many subsets
 #' library(purrr)
-#' BLP_lab_tools::sv_data |> split(~study_design) |>
+#' BLPlabtools::sv_data |> split(~study_design) |>
 #' map(~ summarise_table(., behavior_type)) |> bind_rows(.id = "study_design")
 #'}
 

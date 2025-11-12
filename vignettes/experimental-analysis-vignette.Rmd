@@ -42,7 +42,7 @@ This vignette walks through each of these tools using realistic simulated data f
 For realistic examples, we'll create a simulated dataset from a typical social psychology experiment. Imagine a study testing whether a growth mindset intervention improves student outcomes across 20 schools (100 students per school).
 
 ```{r simulate_data}
-library(BLP_lab_tools)
+library(BLPlabtools)
 library(dplyr)
 
 set.seed(123)  # For reproducibility

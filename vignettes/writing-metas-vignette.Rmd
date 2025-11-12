@@ -359,7 +359,7 @@ The function converts the output from `sessionInfo()` into a Dockerfile that spe
 
 ```{r dockerfile, eval=FALSE}
 # After loading all packages you used in your analysis, run:
-library(BLP_lab_tools)
+library(BLPlabtools)
 library(dplyr)
 library(ggplot2)
 # ... other packages you used

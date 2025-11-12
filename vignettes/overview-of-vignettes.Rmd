@@ -14,9 +14,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-## 1 BLP_lab_tools supports two research workflows.
+## 1 BLPlabtools supports two research workflows.
 
-BLP_lab_tools provides functions for two types of analysis:
+BLPlabtools provides functions for two types of analysis:
 
 1. **Meta-analysis**: Systematically combining results from multiple studies to estimate an overall effect.
 

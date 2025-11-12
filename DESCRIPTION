@@ -1,4 +1,4 @@
-Package: BLP_lab_tools
+Package: BLPlabtools
 Title: Tools for meta-analysis and experimental data from the BLP Lab
 Version: 0.1.0
 Authors@R:
