@@ -1,11 +1,10 @@
 Package: BLPlabtools
 Title: Tools for meta-analysis and experimental data from the BLP Lab
 Version: 0.1.0
-Authors@R:
-    c(person("Seth Ariel", "Green", email = "setgree@stanford.edu", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0003-3909-1969")),
-    person("John-Henry", "Pezzuto", email = "jdp2150@columbia.edu", role = c("aut"),
-           comment = c(ORCID = "0000-0001-5213-4201")))
+Authors@R: c(
+    person("Seth Ariel", "Green", email = "setgree@stanford.edu", role = c("aut", "cre"), comment = c(ORCID = "0000-0003-3909-1969")),
+    person("John-Henry", "Pezzuto", email = "jdp2150@columbia.edu", role = c("aut"), comment = c(ORCID = "0000-0001-5213-4201"))
+    )
 Description: A comprehensive toolkit for meta-analysis and experimental data
     analysis developed by the BLP Lab. Provides functions for converting
     effect sizes from various statistical reports into standardized formats
@@ -15,9 +14,9 @@ Description: A comprehensive toolkit for meta-analysis and experimental data
     for social psychology research but broadly applicable to experimental and
     meta-analytic work.
 License: MIT + file LICENSE
-Depends:
+Depends: 
     R (>= 4.1)
-Imports:
+Imports: 
     dplyr (>= 1.1),
     estimatr,
     lmtest,
@@ -28,7 +27,7 @@ Imports:
     sessioninfo,
     stringr,
     tibble (>= 3.2)
-Suggests:
+Suggests: 
     broom,
     forcats (>= 1.0),
     ggplot2 (>= 3.5),
@@ -43,8 +42,7 @@ Suggests:
     rmarkdown (>= 2.26),
     testthat (>= 3.0.0),
     tidyr (>= 1.3)
-VignetteBuilder:
-    knitr
+VignetteBuilder: knitr
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
