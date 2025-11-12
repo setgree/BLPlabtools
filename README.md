@@ -105,7 +105,7 @@ robust_results <- robust_se(model, cluster = contact_data$unique_study_id)
 robust_results[[2]]  # Print coefficient table with cluster-robust SEs
 
 # Or convert to a tidy data frame
-tidy(robust_results[[2]])
+broom::tidy(robust_results[[2]])
 ```
 
 ## The functions

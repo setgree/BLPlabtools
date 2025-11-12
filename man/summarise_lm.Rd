@@ -33,11 +33,11 @@ if these columns exist in the dataset. You can override these by specifying \cod
 }
 \examples{
 # example 1: entire dataset
-PaluckTools::contact_data |> summarise_lm()
+BLPlabtools::contact_data |> summarise_lm()
 # example 2: split and apply to many subsets
 \dontrun{
 library(purrr)
-PaluckTools::sv_data |> split(~study_design) |> map(summarise_lm)
+BLPlabtools::sv_data |> split(~study_design) |> map(summarise_lm)
 }
 }
 \seealso{

@@ -44,7 +44,7 @@ Meta-analysis is a systematic way to combine findings from multiple studies to e
 
 [^2]: In practice this means operationalizing X and Y, which might not be straightforward: does imagined contact count as contact? What exactly is prejudice, and how do we measure it? It also means setting inclusion criteria related to, e.g., internal validity, measurement error, or population. For instance, your meta-analysis might be focused only on the results of [policy-relevant randomized controlled trials](https://www.cambridge.org/core/journals/behavioural-public-policy/article/contact-hypothesis-reevaluated/142C913E7FA9E121277B29E994124EC5), a [particular class of dependent variable](https://osf.io/a7g95/), or the effects of [sexual violence prevention programs on college campuses](https://www.jahonline.org/article/S1054-139X(23)00117-9/abstract).
 
-## 3 Vignettes 1-3 focus on steps 4-6 (the data analysis portion).
+**Vignettes 1-3 focus on steps 4-6 (the data analysis portion).**
 
 Steps 1-3 involve literature review and study selection, which are covered extensively in other meta-analysis resources. These vignettes focus on the statistical analysis and writing stages.
 
@@ -54,11 +54,11 @@ The [second vignette](meta-analysis-vignette.html) is about **step 5**, how to a
 
 The [third vignette](writing-metas-vignette.html) is about **step 6**, and walks through the other functions we've written to help write a meta-analysis paper. Specifically, it covers `sum_lm`, `sum_tab`, and `study_count`, as well as a few smaller functions for turning a meta-analytic database into a bibliography and creating ggplot2-based visualizations.
 
-## 4 Vignette 4 covers experimental analysis and table formatting.
+**Vignette 4 covers experimental analysis and table formatting.**
 
 If you're analyzing data from your own experiments (not conducting a meta-analysis), the [fourth vignette](experimental-analysis-vignette.html) demonstrates how to use `tidy_lm` for running multiple regression specifications efficiently, `robust_se` for cluster-robust standard errors, and various table formatting utilities for creating publication-ready LaTeX tables.
 
-## 5 Next up
+## Next up
 
 **Conducting a meta-analysis?** → [Converting a study's results into SMD, variance, and standard error](d-calc-vignette.html).
 

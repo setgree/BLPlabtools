@@ -1,7 +1,11 @@
 #' Robust Standard Error
+#'
+#' Calculate cluster-robust standard errors for linear models
+#'
+#' @param model A fitted linear model object (from lm())
+#' @param cluster A vector indicating cluster membership for computing robust SEs
+#' @return A list with two elements: the robust covariance matrix and coefficient test results
 #' @export
-#' @param model
-#' @param cluster What variable should the data be clustered by
 robust_se <- function(model, cluster){
   M <- length(unique(cluster))
   N <- length(cluster)

@@ -1,14 +1,13 @@
 #' Add Parentheses
 #'
 #' Adds parenthesis to input
-#' @param vector
+#' @param vector A vector of values to add parentheses around
 #'
-#' @return
+#' @return A character vector with parentheses added
 #' @export
 #'
 #' @examples
 #' add_parentheses(45)
-#' (45)
 #'
 add_parentheses <- function(vector){
   out <- as.vector(paste0("(", vector, ")"))
@@ -18,14 +17,14 @@ add_parentheses <- function(vector){
 #' Add Brackets
 #'
 #' Adds brackets to input
-#' @param vector
+#' @param vector A vector of values to add brackets around
 #'
-#' @return
+#' @return A character vector with brackets added
 #' @export
 #'
 #' @examples
 #' add_brackets(45)
-#'  [45]
+#'
 add_brackets <- function(vector){
   out <- as.vector(paste0("[", vector, "]"))
   out
@@ -34,16 +33,14 @@ add_brackets <- function(vector){
 #' Two Digits
 #'
 #' Rounds numbers two the second digit, and returns them as a `character` in two digits. Useful for number consistency during visualization.
-#' @param data
+#' @param data Numeric vector to round to two decimal places
 #'
-#' @return
+#' @return A character vector of rounded values with exactly two decimal places
 #' @export
 #'
 #' @examples
 #' two_digits(4.5664)
-#' "4.57"
 #' two_digits(0.1)
-#' "0.10"
 two_digits <- function(data){
   out <- as.vector(trimws(format(round(data, 2), nsmall = 2)))
   out
@@ -52,9 +49,10 @@ two_digits <- function(data){
 #' Add Top Row
 #'
 #' Add an empty row on top of a `dataframe`
-#' @param data
+#' @param data A data frame
+#' @param value Value to fill the new row with (default: NA_real_)
 #'
-#' @return
+#' @return A data frame with an additional row at the top
 #' @export
 #'
 add_top_row <- function(data, value = NA_real_){
@@ -66,9 +64,10 @@ add_top_row <- function(data, value = NA_real_){
 #' Add Bottom Row
 #'
 #' Adds an empty row to the bottom of a `dataframe`
-#' @param data
+#' @param data A data frame
+#' @param value Value to fill the new row with (default: NA_real_)
 #'
-#' @return
+#' @return A data frame with an additional row at the bottom
 #' @export
 #'
 add_bottom_row <- function(data, value = NA_real_){
@@ -79,9 +78,9 @@ add_bottom_row <- function(data, value = NA_real_){
 #' Nothing
 #'
 #' Does nothing. Useful as an anchor on the bottom row while editing using `|>`.
-#' @param data
+#' @param data Any R object
 #'
-#' @return
+#' @return The input data unchanged
 #' @export
 #'
 nothing <- function(data) data
@@ -92,9 +91,9 @@ nothing <- function(data) data
 #' Adds labels to LaTeX tables that have are stored as a vector (e.g. output from `kable()` or `stargazer()` which is stored by `capture.output()`). Labels cannot be seen within the table,
 #' but rather can be referenced within a rmarkdown document via `\label{tab:your_label_here}`
 #' @param latex_table Table from `capture.output()`
-#' @param caption
+#' @param caption Caption text for the table label
 #'
-#' @return
+#' @return A character vector representing the LaTeX table with label added
 #' @export
 #'
 #' @examples
@@ -122,9 +121,9 @@ table_label <- function(latex_table, caption){
 #' Undo Closure
 #'
 #' Removes one character from each side of a `string`. Useful for undoing functions like `add_parentheses` or `add_brackets`.
-#' @param data
+#' @param data A character vector with enclosing characters
 #'
-#' @return
+#' @return A character vector with first and last character removed
 #' @export
 #'
 #' @examples
@@ -142,12 +141,12 @@ undo_closure <- function(data){
 #' Improvement to footnotes from `stargazer` function. Results vary with output from `kable`, although the kable endnotes by default tend to be better formatted.
 #' Used with `capture.output()`. When using, notes made with the original function should not be used.
 #'
-#' @param table
+#' @param table A LaTeX table from capture.output()
 #' @param note Endnote you want to add to the bottom of the table
 #' @param size_in_inches  How many inches long the endnote should be
 #' @param rm.stargazer.stars TRUE/FALSE. Whether to remove the default stargazer Note: that includes the starvalues.
 #'
-#' @return
+#' @return A character vector representing the LaTeX table with endnote added
 #' @export
 #'
 #' @examples
@@ -182,7 +181,7 @@ add_endnote <- function(table,  note, size_in_inches = 6, rm.stargazer.stars = T
 #' @param table Table from `stargazer` using the `capture.output()` function
 #' @param format String either 'brackets', 'parentheses' or 'none' to replace the stargazer default P = x
 #'
-#' @return
+#' @return A character vector representing the modified LaTeX table
 #' @export
 #'
 #' @examples
@@ -215,11 +214,11 @@ stargazer_pvalues <- function(table, format){
 #'
 #' Manually adds rownames to in first column
 #'
-#' @param table
+#' @param table A LaTeX table from stargazer
 #' @param row_name Name for row
 #' @param row_number Which row number to add the name to. Best determined by looking at the object created by `capture.output()`
 #'
-#' @return
+#' @return A character vector representing the modified LaTeX table
 #' @export
 #'
 stargazer_rowname <- function(table, row_name, row_number){
@@ -231,9 +230,9 @@ stargazer_rowname <- function(table, row_name, row_number){
 #' A cleaner way to print LaTeX tables than simply using the `cat()`.
 #' Equivalent to `cat(paste(latex_table, collapse = "\n"))`
 #'
-#' @param latex_table
+#' @param latex_table A character vector representing a LaTeX table
 #'
-#' @return
+#' @return NULL (invisibly); prints to console
 #' @export
 #'
 #' @examples
@@ -249,14 +248,17 @@ print_table <- function(latex_table){
 #'An option for when `kable_styling(full_width = F, latex_options = "scale_down")` isn't enough. This function depends on you already attempting to resize using the aforementioned function.
 #' When using with endnotes, I recommend to use this function with `kableExtra`'s built in, so that the resize corresponds with the table
 #'footnote function
-#' @param table
-#' @param resizebox
-#' @param minipage
+#' @param table A LaTeX table from kable
+#' @param resizebox Numeric value for resizebox size (default 0.8)
+#' @param minipage Numeric value for minipage width (default 1)
 #'
-#' @return
+#' @return A character vector representing the resized LaTeX table
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' # Example with kable table
+#' }
 kable_resize <- function(table, resizebox = .8, minipage = 1){
   placement <- stringr::str_detect(table,"\\\\resizebox\\{")
   table[placement] <- stringr::str_c("\\resizebox{", resizebox, "\\linewidth}{!}{ \\begin{minipage}{", minipage, "\\linewidth}")
@@ -281,7 +283,7 @@ kable_resize <- function(table, resizebox = .8, minipage = 1){
 #' Requires `header needs \newcounter{foo}` to be added in document YAML to work under header-includes:. Useful for adding secondary
 #' counts to tables (e.g., Table 2a, Table 2b). Can also be used to switch primary counts to alternative styles like `alph` or `roman`.
 #'
-#' @param latex_table
+#' @param latex_table A character vector representing a LaTeX table
 #' @param hold_primary_count Stops the first counter from ascending
 #' @param rm_primary_count Does not show primary count
 #' @param rm_secondary_count Removes secondary count
@@ -289,10 +291,13 @@ kable_resize <- function(table, resizebox = .8, minipage = 1){
 #' @param primary_count_style `Character` vector that should be equal to `alph`, `Alph`, `arabic`, `roman`, or `Roman`.
 #' @param secondary_count_style `Character` vector that should be equal to `alph`, `Alph`, `arabic`, `roman`, or `Roman`.
 #'
-#' @return
+#' @return A character vector representing the renumbered LaTeX table
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' # Example with table renumbering
+#' }
 table_numbers <- function(latex_table, hold_primary_count = TRUE, rm_primary_count = FALSE,
                           rm_secondary_count = FALSE, reset_secondary_counter = FALSE,
                           primary_count_style = "arabic", secondary_count_style = "alph"){
@@ -348,13 +353,16 @@ table_numbers <- function(latex_table, hold_primary_count = TRUE, rm_primary_cou
 #'
 #' Currently set up to be used in papaja documents.
 #'
-#' @param latex_table
+#' @param latex_table A character vector representing a LaTeX table
 #' @param word `string` of word to italicize
 #'
-#' @return
+#' @return A character vector representing the modified LaTeX table
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' # Example with word italicizing
+#' }
 word_italicize <- function(latex_table, word){
   labelnum <- which(stringr::str_detect(latex_table, word) == TRUE)
   if(length(labelnum) == 0){

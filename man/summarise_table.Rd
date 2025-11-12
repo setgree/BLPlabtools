@@ -24,11 +24,11 @@ the unquoted variable name and !! to unquote it within the function.
 }
 \examples{
 # simple example: entire dataset
-PaluckTools::sv_data |> summarise_table(behavior_type)
+BLPlabtools::sv_data |> summarise_table(behavior_type)
 \dontrun{
 # example with split and apply to many subsets
 library(purrr)
-PaluckTools::sv_data |> split(~study_design) |>
+BLPlabtools::sv_data |> split(~study_design) |>
 map(~ summarise_table(., behavior_type)) |> bind_rows(.id = "study_design")
 }
 }
