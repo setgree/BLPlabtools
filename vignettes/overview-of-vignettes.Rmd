@@ -52,7 +52,7 @@ The [first vignette](d-calc-vignette.html) is about **step 4**: calculating effe
 
 The [second vignette](meta-analysis-vignette.html) is about **step 5**, how to actually do meta-analysis. It covers using `map_robust` to combine your point estimates and variances into pooled estimates for the population and any subgroups you want to analyze.
 
-The [third vignette](writing-metas-vignette.html) is about **step 6**, and walks through the other functions we've written to help write a meta-analysis paper. Specifically, it covers `sum_lm`, `sum_tab`, and `study_count`, as well as a few smaller functions for turning a meta-analytic database into a bibliography and creating ggplot2-based visualizations.
+The [third vignette](writing-metas-vignette.html) is about **step 6**, and walks through the other functions we've written to help write a meta-analysis paper. Specifically, it covers `summarise_lm`, `summarise_table`, and `study_count`, as well as a few smaller functions for turning a meta-analytic database into a bibliography and creating ggplot2-based visualizations.
 
 **Vignette 4 covers experimental analysis and table formatting.**
 
