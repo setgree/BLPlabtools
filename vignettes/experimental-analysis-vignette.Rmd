@@ -29,7 +29,7 @@ When you analyze experimental data, you often need to:
 - Account for clustering in your standard errors (students within schools, voters within precincts)
 - Create publication-ready tables with proper formatting
 
-PaluckTools provides three main categories of functions to help with these tasks:
+BLPlabtools provides three main categories of functions to help with these tasks:
 
 1. **`tidy_lm`** for running multiple regression specifications efficiently
 2. **`robust_se`** for cluster-robust standard errors
