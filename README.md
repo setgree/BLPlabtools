@@ -5,9 +5,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
 
-BLPlabtools documents the [BLP
-lab's](http://www.betsylevypaluck.com/) approach to conducting
-meta-analyses and analyzing experimental data.
+`BLPlabtools` documents the [BLP lab's](http://www.betsylevypaluck.com/) 
+approach to conducting meta-analyses and analyzing experimental data.
 
 ## Installation & getting started
 
@@ -26,23 +25,6 @@ The overview vignette previews the remainder.
   - `contact_data` - data from [contact hypothesis meta-analysis](https://doi.org/10.1017/bpp.2018.25)
   - `map_reduction_data` - data from [meat animal product reduction meta-analysis](https://doi.org/10.1016/j.appet.2025.108233)
 
-It draws from four projects:
-- [PaluckMetaSOP](https://github.com/setgree/PaluckMetaSOP) -
-  meta-analysis functions featured in "[The Contact Hypothesis
-  Re-evaluated](https://doi.org/10.1017/bpp.2018.25)" and "[Preventing
-  Sexual Violence —A Behavioral Problem Without a Behaviorally-Informed
-  Solution](https://doi.org/10.1177/15291006231221978)"
-- [blpl](https://github.com/johnhenrypezzuto/blpl) - John-Henry
-  Pezzuto’s experimental analysis and table formatting tools
--  [vegan-meta](https://github.com/hsflabstanford/vegan-meta) - code and data for "[Meaningfully reducing consumption
-  of meat and animal products is an unsolved problem:
-  A meta-analysis](https://doi.org/10.1016/j.appet.2025.108233)"
-  (this meta-analysis was not conducted at the BLP Lab but was highly influenced by BLP Lab methods)
-- [prejudice-reduction-code-and-data](https://github.com/setgree/prejudice-reduction-code-and-data) -
-  additional helper functions for effect size conversion and data
-  preparation used to generate the results of "[Prejudice Reduction:
-  Progress and Challenges](https://doi.org/10.1146/annurev-psych-071620-030619)"
-
 ## A few quick examples:
 
 **Calculate effect sizes**
@@ -59,7 +41,7 @@ variance <- var_d_calc(d = d, n_t = 21, n_c = 21)
 # Result: variance = 0.092
 ```
 
-**&Run a meta-analysis**
+**Run a meta-analysis**
 
 ``` r
 library(BLPlabtools)
@@ -99,6 +81,23 @@ publish     -0.04319455  0.10299523 -0.4194  0.67867
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ```
+
+## Evolution of the project
+The very first draft of this work was done to prepare for 
+[_The contact hypothesis re-evaluated_](https://doi.org/10.1017/bpp.2018.25), whose code
+is preserved on [Code Ocean](https://doi.org/10.24433/CO.4024382.v7).
+
+Then, while preparing [_Prejudice Reduction: Progress and Challenges_](https://doi.org/10.1146/annurev-psych-071620-030619) -- 
+code and data [here](https://github.com/setgree/prejudice-reduction-code-and-data) --
+John-Henry and I came up with the first drafts of [PaluckMetaSOP](https://github.com/setgree/PaluckMetaSOP) 
+(meta-analysis functions) and [blpl](https://github.com/johnhenrypezzuto/blpl) (table formatting tools).
+We refined those further while preparing [_Preventing Sexual Violence —A Behavioral Problem Without a Behaviorally-Informed Solution](https://doi.org/10.1177/15291006231221978). 
+
+Finally, I (Seth Green) adapted these tools further for 
+[_Meaningfully reducing consumption of meat and animal products is an unsolved problem: A meta-analysis_](https://doi.org/10.1016/j.appet.2025.108233),
+whose code and data is [here](https://github.com/hsflabstanford/vegan-meta).
+
+This package represents the culmination and synthesis of those many earlier efforts.
 
 ## For BLP Lab members
 
