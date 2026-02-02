@@ -26,7 +26,7 @@ The main function in this vignette is called `map_robust`. We'll demonstrate how
 
 ## The easy case: combining all estimates into a single pooled effect size
 
-`map_robust` is a wrapper around a pre-existing function from the `metafor` package called `robust`, which is itself a wrapped around the function `rma`. See the `man` pages for those functions for full details.
+`map_robust` is a wrapper around a pre-existing function from the `metafor` package called `robust`, which is itself a wrapper around the function `rma`. See the `man` pages for those functions for full details.
 
 `map_robust` takes a dataset and returns a data frame with an N of the number of data points; an N for the number of studies; a ∆ signifying the pooled effect size; a standard error; and a p value.
 
@@ -84,7 +84,7 @@ A note about this: if your "group" (the thing you are running `purrr::split()` o
 ## Making publication-ready tables out of subgroup analyses
 If we apply a few more functions, we can actually get pretty close to a publication-ready table.
 
-`dplyr::bind_cols()` combines multiple data frames (in this case, a list of lists) into a single data frame.
+`dplyr::bind_rows()` combines multiple data frames (in this case, a list of lists) into a single data frame.
 
 ```{r split_plus_bind_cols}
 library(dplyr, warn.conflicts = FALSE)
@@ -92,7 +92,7 @@ sv_data |> split(~behavior_type) |> map(map_robust) |>
   bind_rows(.id = "behavior_type")
 ```
 
-Which you can turn into a variety of formats, e.g LateX or markdown, via `knitr::kable()`:
+Which you can turn into a variety of formats, e.g., LaTeX or markdown, via `knitr::kable()`:
 
 ```{r split_plus_kable}
 library(knitr)

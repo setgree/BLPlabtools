@@ -260,7 +260,7 @@ my_table |> table_label(caption = "sv_results")
 my_table |> table_numbers(table_number = "2a")
 
 # Resize table
-my_table |> kable_resize(size_in_inches = 5)
+my_table |> kable_resize(resizebox = 0.8)
 ```
 
 ## Stargazer-specific formatting
@@ -288,8 +288,8 @@ table_output |> add_endnote(
   rm.stargazer.stars = TRUE
 )
 
-# Customize row names
-table_output |> stargazer_rowname(old_name = "RCT", new_name = "Treatment (RCT)")
+# Add row name at specific row number
+table_output |> stargazer_rowname(row_name = "Treatment (RCT)", row_number = 10)
 ```
 
 # Complete workflow example
