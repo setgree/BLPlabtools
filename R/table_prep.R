@@ -1,5 +1,8 @@
 # All functions in this file authored by John-Henry Pezzuto
 
+#' @importFrom stringr str_extract str_c str_detect str_replace str_sub str_length str_remove_all str_replace_all
+NULL
+
 #' Add Parentheses
 #'
 #' Adds parenthesis to input
@@ -104,8 +107,9 @@ nothing <- function(data) data
 #' my_table <- table_label(my_table_rough, "demographics")
 #' print_table(table)
 #'
-#' # Within Markdown Document
-#' `\label{tab:demographics}` # this will print as Table 1, and update depending on the order of the tables.
+#' # Within Markdown Document, reference via:
+#' # `\label{tab:demographics}`
+#' # This prints as "Table 1" and updates with table order.
 #' }
 table_label <- function(latex_table, caption){
   # if label exists
@@ -155,7 +159,10 @@ undo_closure <- function(data){
 #' @examples
 #' \dontrun{
 #' my_table_rough <- capture.output(stargazer(mtcars))
-#' my_table <- add_endnote(table = my_table_rough, note = "my endnote is very long", size_in_inches = 6, rm.stargazer.stars = TRUE)
+#' my_table <- add_endnote(table = my_table_rough,
+#'                         note = "my endnote is very long",
+#'                         size_in_inches = 6,
+#'                         rm.stargazer.stars = TRUE)
 #' print_table(table)
 #' }
 add_endnote <- function(table,  note, size_in_inches = 6, rm.stargazer.stars = TRUE){
@@ -228,7 +235,8 @@ stargazer_pvalues <- function(table, format){
 #' @export
 #'
 stargazer_rowname <- function(table, row_name, row_number){
-  table[rownumber] <- stringr::str_c(row_name, table[row_number])
+  table[row_number] <- stringr::str_c(row_name, table[row_number])
+  table
 }
 
 #' Print Table
@@ -273,7 +281,7 @@ kable_resize <- function(table, resizebox = .8, minipage = 1){
 
   # close minipage
   ending <- which(stringr::str_detect(table, "\\\\end\\{tabular\\}"))
-  table[ending] <- stringr::str_remove(table5_rough[ending], "\\}") # take out resize curly bracket
+  table[ending] <- stringr::str_remove(table[ending], "\\}") # take out resize curly bracket
   table[ending] <- stringr::str_c(table[ending], "\\end{minipage}}") # close minipage, and reinstate curly bracket
 
   table

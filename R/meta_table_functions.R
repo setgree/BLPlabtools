@@ -1,7 +1,7 @@
 # Global variable bindings to avoid R CMD check notes
 utils::globalVariables(c("unique_study_id", "var_d", "Delta", "Moderator",
                          "p_val", "p_val_ref", "N_Studies", "N_Estimates", "CI",
-                         "group_var_factor"))
+                         "group_var_factor", "tau"))
 
 #' Run Subset Meta-Analysis with Flexible Filtering
 #'
@@ -173,6 +173,7 @@ run_subset_meta_analysis <- function(data, group_var = NULL, level = NULL,
 #' @importFrom metafor rma robust
 #' @importFrom dplyr group_by summarise filter pull n_distinct mutate
 #' @importFrom rlang sym !!
+#' @importFrom stats setNames
 #' @export
 #'
 #' @examples

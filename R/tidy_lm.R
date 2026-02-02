@@ -1,7 +1,12 @@
 #' @importFrom methods hasArg
 #' @importFrom stats pf
 #' @importFrom utils tail
+#' @importFrom stringr str_remove_all str_replace_all
+#' @importFrom dplyr do
 NULL
+
+# Global variable bindings to avoid R CMD check notes
+utils::globalVariables(c("value"))
 
 #' tidy_lm
 #'
