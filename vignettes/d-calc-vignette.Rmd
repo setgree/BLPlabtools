@@ -47,7 +47,7 @@ When the $SD$ of the control group isn't available but the $SD$ of the entire po
 
 ### What your data should look like
 
-Before diving into effect size calculations, it helps to know what columns you'll need in your meta-analytic database. Here's a peek at the `contact_data` structure:
+Before diving into effect size calculations, it helps to know what columns you'll need in your meta-analytic database. Here's a view of the `contact_data` structure:
 
 ```{r preview_contact_data}
 library(BLPlabtools)
@@ -60,25 +60,25 @@ contact_data |>
   head(3)
 ```
 
-**Essential columns you'll need to extract from papers:**
+**Essential columns you'll need to extract from each paper:**
 
-- **`study`**: Study identifier (author, year)
-- **`statistic`**: Type of statistic reported (e.g., "d_i_m", "t_test", "reg_coef")
-- **`unstand`**: The unstandardized statistic value (e.g., t = 2.5, β = 0.366)
-- **`sd_c`**: Standard deviation of control group (when available)
-- **`n_t`** and **`n_c`**: Sample sizes for treatment and control groups
+-   **`study`**: Study identifier (author, year)
+-   **`statistic`**: Type of statistic reported (e.g., "d_i_m", "t_test", "reg_coef")
+-   **`unstand`**: The unstandardized statistic value (e.g., t = 2.5, β = 0.366)
+-   **`sd_c`**: Standard deviation of control group (when available)
+-   **`n_t`** and **`n_c`**: Sample sizes for treatment and control groups
 
 **Columns you'll create with this package's functions:**
 
-- **`d`**: Standardized mean difference (calculated via `d_calc`)
-- **`var_d`**: Variance of effect size (calculated via `var_d_calc`)
-- **`se_d`**: Standard error (square root of `var_d`)
+-   **`d`**: Standardized mean difference (calculated via `d_calc`)
+-   **`var_d`**: Variance of effect size (calculated via `var_d_calc`)
+-   **`se_d`**: Standard error (square root of `var_d`)
 
 **Optional but recommended columns:**
 
-- **`what`**: Notes on where you found each piece of information (e.g., "Table 3, p. 45")
-- **`unique_study_id`**: Numeric ID for clustering in meta-analysis
-- **Moderator variables**: Any categorical or continuous variables you'll use for subgroup analyses
+-   **`what`**: Notes on where you found each piece of information (e.g., "Table 3, p. 45")
+-   **`unique_study_id`**: Numeric ID for clustering in meta-analysis
+-   **Moderator variables**: Any categorical or continuous variables you'll use for subgroup analyses
 
 As you read papers and extract data, you'll fill in the "essential" columns. Then you can use `d_calc` and `var_d_calc` (as shown in [section 5](#section5)) to automatically generate the effect sizes and variances for your entire dataset.
 
@@ -158,7 +158,7 @@ library(BLPlabtools)
 data(contact_data)
 ```
 
-### The easy cases: difference in means, difference in differences, and, regression coefficients
+### The easy cases: difference in means and regression coefficients
 
 #### Difference in means (d_i_m):
 
@@ -195,32 +195,6 @@ ditullio_se <- sqrt(ditullio_variance)
 Two notes about this effect size. First, you'll see a "what" column in `contact_data` that, for this study, says "Table 4.9 (p. 79)." This is where we recorded the place in the text that reports the standard deviation of the control group, which is often the hardest thing to pin down in a paper. Your readers (and your future self!) will thank you for taking and sharing notes like this.
 
 Second, ∆ = 2.533 is a very large effect size. Δ ∈ [−1,1] is more typical in our experience.
-
-#### Difference in differences (d_i_d):
-
-Some studies present the mean outcomes for each group at both baseline and posttest. [Clunies-Ross & O'Meara (1989)](https://aps.onlinelibrary.wiley.com/doi/abs/10.1080/00050068908259566) tested an "attitude change programme" comprised of "controlled vicarious contact with peers with disabilities, disability simulations, and success oriented group experiences" (p. 271). Here is table 1 (p. 279):
-
-![](images/Clunies-school-A-results.png){width="600"}
-
-In these cases, we subtract the baseline values from the posttest values for both treatment and control, and divide the resulting difference by the $SD$ of the control group at baseline. This procedure creates more precise estimates because it controls for baseline differences between the two groups.
-
-$$
-∆ = \frac{(111.1-92.7)-(102.9-99.4)}{28.28} = 0.5268741
-$$
-
-This was for school A, and we repeated the same process for school B as a separate effect size estimate.
-
-In code:
-
-```{r dessel_effects}
-dessel_school_a_effects <- d_calc(stat_type = "d_i_d", stat = (111.1-92.7)-(102.9-99.4), sample_sd = 28.28)
-
-dessel_school_a_var <- var_d_calc(d = dessel_school_a_effects, n_t = 15, n_c = 15)
-
-dessel__school_a_se <- sqrt(dessel_school_a_var)
-```
-
-Notice that we record the DiD calculation in the code itself for reproducibility (and also to make it easier to spot mistakes).
 
 #### Regression coefficient (beta):
 
@@ -268,6 +242,42 @@ Bois_se_other_roommates <- sqrt(Bois_var_other_roomamtes)
 ```
 
 By the way, the fact that $\beta$, SD, and the Ns were all reported in separate places in the paper is not at all atypical. You'll often have to read the entire paper carefully to find what you need to calculate ∆. However, even if everything you need is presented in a simple table, at least one author should still read every paper. it's the best way to figure out what a literature is really about.
+
+### Difference in differences (d_i_d):
+
+Some studies present the mean outcomes for each group at both baseline and posttest. [Clunies-Ross & O'Meara (1989)](https://aps.onlinelibrary.wiley.com/doi/abs/10.1080/00050068908259566) tested an "attitude change programme" comprised of "controlled vicarious contact with peers with disabilities, disability simulations, and success oriented group experiences" (p. 271). Here is table 1 (p. 279):
+
+![](images/Clunies-school-A-results.png){width="600"}
+
+In these cases, we subtract the baseline values from the posttest values for both treatment and control; subtract the change in the control group from the change in the treatment group; and divide the resulting difference by the $SD$ of the control group at baseline.
+
+This procedure creates more precise estimates because it controls for baseline differences between the two groups.
+
+$$
+∆ = \frac{(111.1-92.7)-(102.9-99.4)}{28.28} = 0.5268741
+$$
+
+This was for school A, and we repeated the same process for school B as a separate effect size estimate.
+
+In code:
+
+```{r clunies_effects}
+clunies_a <- d_calc(stat_type = "d_i_d", stat = (111.1-92.7)-(102.9-99.4), sample_sd = 28.28)
+
+clunies_a_var <- var_d_calc(d = dessel_school_a_effects, n_t = 15, n_c = 15)
+
+clunies_a_se <- sqrt(dessel_school_a_var)
+```
+
+Notice that we record the DiD calculation in the code itself for reproducibility (and also to make it easier to spot mistakes). Alternatively, you might record it as a formula in your data spreadsheet. It's good to have a record of it somewhere.
+
+#### A few DiD-related judgment calls
+
+-   When possible, we prefer differences rather over differences in means for calculating d or ∆. Including baseline/pretest information should increase the precision of the resulting estimate by incorporating information about changes over time that (in theory) affect both groups.
+
+-   DiD sometimes requires interpreting data from multiple tables. Papers occasionally present the treatment group's change over time in one table and the control group's change over time in another. This makes the meta-analyst's job a little harder, but the logic is the same.
+
+-   When multiple SDs are available, we typically take the SD of the control group **at pretest/baseline** as our "standardizing" value. This is not essential, but it's a helpful convention.
 
 ### Converting statistical summaries into SMDs
 
@@ -324,7 +334,7 @@ sayler_se <- sqrt(sayler_var)
 
 #### log odds ratios, odds ratios, and a novel difference in proportions estimator: {#section323}
 
-**Log odds ratios** can be converted to d via $d = log(OR) * \sqrt{\frac{3}{pi}}$. Odds ratios can be logged and then put in the same formula. 
+**Log odds ratios** can be converted to d via $d = log(OR) * \sqrt{\frac{3}{pi}}$. Odds ratios can be logged and then put in the same formula.
 
 Neither of these estimators came up in [The Contact Hypothesis Re-evaluated](https://doi.org/10.1017/bpp.2018.25), though they did in subsequent meta-analyses. However, we try to avoid converting odds ratios or log odds ratios to ∆ whenever possible. As [Gomilla (2021)](https://psycnet.apa.org/record/2020-71596-001) writes, any given odds ratio "can translate into different Cohen’s d values, depending on the probability" of event incidence for the "dependent variable for control group participants" (p. 8).[^6]
 

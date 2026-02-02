@@ -1,3 +1,6 @@
+# Global variable bindings to avoid R CMD check notes
+utils::globalVariables(c("dv", "model_number"))
+
 #' Star Ready
 #' Prepares output from `tidy_lm` for use with the package stargazer
 #'
@@ -6,6 +9,7 @@
 #'
 #' @return Returns a tibble with all lms that can be directly used with stargazer.
 #'
+#' @importFrom dplyr do starts_with
 #' @author John-Henry Pezzuto
 #' @export
 #tidy_lm_df <- four_a_
