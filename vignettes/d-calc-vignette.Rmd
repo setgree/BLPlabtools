@@ -62,7 +62,7 @@ contact_data |>
 
 **Essential columns you'll need to extract from each paper:**
 
--   **`study`**: Study identifier (author, year)
+-   **`Study`**: Study identifier (author, year)
 -   **`statistic`**: Type of statistic reported (e.g., "d_i_m", "t_test", "reg_coef")
 -   **`unstand`**: The unstandardized statistic value (e.g., t = 2.5, β = 0.366)
 -   **`sd_c`**: Standard deviation of control group (when available)
@@ -185,7 +185,7 @@ $$\Delta = \frac{5.708 - 3.0789}{1.0381} = 2.533$$
 Here is code to calculate ∆, variance, and SE:
 
 ```{r ditullio_results}
-ditullio_results <- d_calc(stat_type = "d_i_m", stat = 5.708 - 3.0798, sample_sd = 1.0381)
+ditullio_results <- d_calc(stat_type = "d_i_m", stat = 5.708 - 3.0789, sample_sd = 1.0381)
 
 ditullio_variance <- var_d_calc(d = ditullio_results, n_t = 38, n_c = 38)
 
@@ -228,20 +228,20 @@ boisjoly_n_c <- 1278 - 35 - 98 - 40 - 69 # 1036
 
 # black roommates
 Bois_d_black_roommates <- d_calc(stat_type = "reg_coef", stat = .366, sample_sd = 1.074)
-Bois_var_black_roomamtes <- var_d_calc(d = Bois_d_black_roommates, 
-                                       n_t = black_roommate_treatment_n, 
+Bois_var_black_roommates <- var_d_calc(d = Bois_d_black_roommates,
+                                       n_t = black_roommate_treatment_n,
                                        n_c = boisjoly_n_c)
-Bois_se_black_roommates <- sqrt(Bois_var_black_roomamtes)
+Bois_se_black_roommates <- sqrt(Bois_var_black_roommates)
 
 # other minority roommates
 Bois_d_other_roommates <- d_calc(stat_type = "reg_coef", stat = .032, sample_sd = 1.074)
-Bois_var_other_roomamtes <- var_d_calc(d = Bois_d_black_roommates, 
-                                       n_t = other_minority_treatment_n, 
+Bois_var_other_roommates <- var_d_calc(d = Bois_d_other_roommates,
+                                       n_t = other_minority_treatment_n,
                                        n_c = boisjoly_n_c)
-Bois_se_other_roommates <- sqrt(Bois_var_other_roomamtes)
+Bois_se_other_roommates <- sqrt(Bois_var_other_roommates)
 ```
 
-By the way, the fact that $\beta$, SD, and the Ns were all reported in separate places in the paper is not at all atypical. You'll often have to read the entire paper carefully to find what you need to calculate ∆. However, even if everything you need is presented in a simple table, at least one author should still read every paper. it's the best way to figure out what a literature is really about.
+By the way, the fact that $\beta$, SD, and the Ns were all reported in separate places in the paper is not at all atypical. You'll often have to read the entire paper carefully to find what you need to calculate ∆. However, even if everything you need is presented in a simple table, at least one author should still read every paper. It's the best way to figure out what a literature is really about.
 
 ### Difference in differences (d_i_d):
 
@@ -465,7 +465,7 @@ Fourth, if you can't find what you need in the paper and the authors can't help,
 
 No matter what you choose for a case like this, we recommend you document your choices carefully for inclusion in your supplementary materials.
 
-## Incorporating `d_calc` and `var_d_calc` into your analysis scripts
+## Incorporating `d_calc` and `var_d_calc` into your analysis scripts {#section5}
 
 When we wrote TCHR, we had one function that combined the results of `d_calc` and `var_d_calc` into a table and a script that recorded the those calculations for every study. We then copied and pasted that script's results into our final dataset.
 
