@@ -261,12 +261,12 @@ This was for school A, and we repeated the same process for school B as a separa
 
 In code:
 
-```{r dessel_effects}
-dessel_school_a_effects <- d_calc(stat_type = "d_i_d", stat = (111.1-92.7)-(102.9-99.4), sample_sd = 28.28)
+```{r clunies_effects}
+clunies_a <- d_calc(stat_type = "d_i_d", stat = (111.1-92.7)-(102.9-99.4), sample_sd = 28.28)
 
-dessel_school_a_var <- var_d_calc(d = dessel_school_a_effects, n_t = 15, n_c = 15)
+clunies_a_var <- var_d_calc(d = dessel_school_a_effects, n_t = 15, n_c = 15)
 
-dessel__school_a_se <- sqrt(dessel_school_a_var)
+clunies_a_se <- sqrt(dessel_school_a_var)
 ```
 
 Notice that we record the DiD calculation in the code itself for reproducibility (and also to make it easier to spot mistakes). Alternatively, you might record it as a formula in your data spreadsheet. It's good to have a record of it somewhere.
