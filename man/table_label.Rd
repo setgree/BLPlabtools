@@ -24,7 +24,8 @@ my_table_rough <- capture.output(stargazer(mtcars))
 my_table <- table_label(my_table_rough, "demographics")
 print_table(table)
 
-# Within Markdown Document
-`\\label{tab:demographics}` # this will print as Table 1, and update depending on the order of the tables.
+# Within Markdown Document, reference via:
+# `\label{tab:demographics}`
+# This prints as "Table 1" and updates with table order.
 }
 }

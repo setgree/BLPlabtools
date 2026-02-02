@@ -25,7 +25,10 @@ Used with \code{capture.output()}. When using, notes made with the original func
 \examples{
 \dontrun{
 my_table_rough <- capture.output(stargazer(mtcars))
-my_table <- add_endnote(table = my_table_rough, note = "my endnote is very long", size_in_inches = 6, rm.stargazer.stars = TRUE)
+my_table <- add_endnote(table = my_table_rough,
+                        note = "my endnote is very long",
+                        size_in_inches = 6,
+                        rm.stargazer.stars = TRUE)
 print_table(table)
 }
 }
