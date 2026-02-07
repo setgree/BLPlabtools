@@ -48,7 +48,7 @@ Our function is different in a few respects. First, it's designed to take in a d
 
 Clustering accounts for the fact that multiple effect sizes from the same study are not independent—they share the same participants, setting, and research team. By clustering at the study level, we get more accurate standard errors that account for this dependence.
 
-Our meta-analyses cluster at the level of study. You could also cluster at the level of a paper, or of a team of authors, or at no level at all. If you run our function on a dataset where each unique_study_id corresponds to only one row in the dataset, it's equivalent to not clustering. We'll demonstrate that with `BLPlabtools::contact_data`:
+Our meta-analyses cluster at the level of study. You could also cluster at the level of a paper, or of a team of authors, or at no level at all. If you run our function on a dataset where each `unique_study_id` corresponds to only one row in the dataset, the results are nearly identical to not clustering---the point estimates are the same, and the standard errors and p-values differ only in the third or fourth decimal place.^[The small differences arise because `robust()` uses a sandwich variance estimator with a small-sample correction, whereas `rma()` uses model-based standard errors, and because `robust()` uses a *t*-distribution for inference while `rma()` uses a *z*-distribution.] We'll demonstrate that with `BLPlabtools::contact_data`:
 
 ```{r contact_data_demonstration}
 library(dplyr, warn.conflicts = FALSE)
@@ -63,7 +63,7 @@ contact_data |> select(-unique_study_id) |> # remove unique study id to reconstr
 robust(x = metafor::rma(yi = contact_data$d, vi = contact_data$var_d),
        cluster = contact_data$unique_study_id)
 
-# same as if we drop the clustering information
+# nearly the same as if we drop the clustering information
 rma(yi = d, vi = var_d, data = contact_data)
 ```
 
