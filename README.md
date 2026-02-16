@@ -1,11 +1,21 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 80
+---
+
 # BLPlabtools
 
 <!-- badges: start -->
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![License:
+MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 <!-- badges: end -->
 
-`BLPlabtools` documents the [BLP lab's](http://www.betsylevypaluck.com/) 
+`BLPlabtools` documents the [BLP lab's](http://www.betsylevypaluck.com/)
 approach to conducting meta-analyses and analyzing experimental data.
 
 ## Installation & getting started
@@ -14,16 +24,21 @@ approach to conducting meta-analyses and analyzing experimental data.
 remotes::install_github('setgree/BLPlabtools', build_vignettes = TRUE)
 browseVignettes(package = "BLPlabtools")
 ```
-The overview vignette previews the remainder. 
+
+The overview vignette previews the remainder.
 
 ## This package contains
 
-- **Functions** for meta-analysis and experimental analysis
-- **Vignettes** that walk through different workflows, focusing on meta-analysis
-- **Datasets**:
-  - `sv_data` - data from [sexual violence prevention meta-analysis](https://doi.org/10.1177/15291006231221978)
-  - `contact_data` - data from [contact hypothesis meta-analysis](https://doi.org/10.1017/bpp.2018.25)
-  - `map_reduction_data` - data from [meat animal product reduction meta-analysis](https://doi.org/10.1016/j.appet.2025.108233)
+-   **Functions** for meta-analysis and experimental analysis
+-   **Vignettes** that walk through different workflows, focusing on
+    meta-analysis
+-   **Datasets**:
+    -   `sv_data` - data from [sexual violence prevention
+        meta-analysis](https://doi.org/10.1177/15291006231221978)
+    -   `contact_data` - data from [contact hypothesis
+        meta-analysis](https://doi.org/10.1017/bpp.2018.25)
+    -   `map_reduction_data` - data from [meat animal product reduction
+        meta-analysis](https://doi.org/10.1016/j.appet.2025.108233)
 
 ## A few quick examples:
 
@@ -50,8 +65,10 @@ library(dplyr, warn.conflicts = FALSE)
 # Use built-in sexual violence prevention data
 sv_data |> map_robust() 
 ```
+
 This prints:
-```
+
+```         
 # A tibble: 1 × 5
   N_observations N_studies Delta     se pval     
            <int>     <int> <dbl>  <dbl> <noquote>
@@ -70,8 +87,10 @@ model <- lm(d ~ days_delay + publish, data = contact_data)
 # Add cluster-robust SEs by unique_study_id and
 robust_se(model, cluster = contact_data$unique_study_id)[[2]] 
 ```
+
 This prints
-```
+
+```         
 t test of coefficients:
 
                Estimate  Std. Error t value Pr(>|t|)   
@@ -83,21 +102,28 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 ```
 
 ## Evolution of the project
-The very first draft of this work was done to prepare for 
-[_The contact hypothesis re-evaluated_](https://doi.org/10.1017/bpp.2018.25), whose code
-is preserved on [Code Ocean](https://doi.org/10.24433/CO.4024382.v7).
 
-Then, while preparing [_Prejudice Reduction: Progress and Challenges_](https://doi.org/10.1146/annurev-psych-071620-030619) -- 
-code and data [here](https://github.com/setgree/prejudice-reduction-code-and-data) --
-John-Henry and I came up with the first drafts of [PaluckMetaSOP](https://github.com/setgree/PaluckMetaSOP) 
-(meta-analysis functions) and [blpl](https://github.com/johnhenrypezzuto/blpl) (table formatting tools).
-We refined those further while preparing [_Preventing Sexual Violence —A Behavioral Problem Without a Behaviorally-Informed Solution](https://doi.org/10.1177/15291006231221978). 
+The very first draft of this work was done to prepare for [*The contact
+hypothesis re-evaluated*](https://doi.org/10.1017/bpp.2018.25), whose code is
+preserved on [Code Ocean](https://doi.org/10.24433/CO.4024382.v7).
 
-Finally, I (Seth Green) adapted these tools further for 
-[_Meaningfully reducing consumption of meat and animal products is an unsolved problem: A meta-analysis_](https://doi.org/10.1016/j.appet.2025.108233),
-whose code and data is [here](https://github.com/hsflabstanford/vegan-meta).
+Then, while preparing [*Prejudice Reduction: Progress and
+Challenges*](https://doi.org/10.1146/annurev-psych-071620-030619) -- code and
+data [here](https://github.com/setgree/prejudice-reduction-code-and-data) --
+John-Henry and I came up with the first drafts of
+[PaluckMetaSOP](https://github.com/setgree/PaluckMetaSOP) (meta-analysis
+functions) and [blpl](https://github.com/johnhenrypezzuto/blpl) (table
+formatting tools). We refined those further while preparing [*Preventing Sexual
+Violence —A Behavioral Problem Without a Behaviorally-Informed
+Solution*](https://doi.org/10.1177/15291006231221978).
 
-This package represents the culmination and synthesis of those many earlier efforts.
+Finally, I (Seth Green) adapted these tools further for [*Meaningfully reducing
+consumption of meat and animal products is an unsolved problem: A
+meta-analysis*](https://doi.org/10.1016/j.appet.2025.108233), whose code and
+data is [here](https://github.com/hsflabstanford/vegan-meta).
+
+This package represents the culmination and synthesis of those many earlier
+efforts.
 
 ## For BLP Lab members
 
