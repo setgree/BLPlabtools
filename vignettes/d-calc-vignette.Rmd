@@ -27,7 +27,7 @@ Before we show you how to calculate these numbers, let's talk about what they me
 
 $$SMD = \frac{M_1-M_2}{SD}$$
 
-In plain language: an SMD is the difference in average outcomes between the treatment and control groups (Average Treatment Effect) divided by the standard deviation (SD) of the outcome.
+In plain language: an SMD is the difference in average outcomes between the treatment and control groups (Average Treatment Effect) divided by the standard deviation (SD) of the outcome. (**Important: standard deviation is not the same thing as standard error! Dividing the effect size by standard error will give you effect sizes that are much too big, This sometimes happens [in published research](https://pmc.ncbi.nlm.nih.gov/articles/PMC9877053/).**)
 
 We calculate SMD with `d_calc` and its variance using `var_d_calc`. The standard error (SE) of an SMD is the square root of its variance. Our meta-analytic databases typically include all three.[^1]
 
