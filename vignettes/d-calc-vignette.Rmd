@@ -334,7 +334,7 @@ sayler_se <- sqrt(sayler_var)
 
 #### log odds ratios, odds ratios, and a novel difference in proportions estimator: {#log-odds-diff-proportions}
 
-**Log odds ratios** can be converted to d via $d = log(OR) * \sqrt{\frac{3}{pi}}$. Odds ratios can be logged and then put in the same formula.
+**Log odds ratios** can be converted to d via $d = log(OR) * \sqrt{\frac{3}{\pi}}$. Odds ratios can be logged and then put in the same formula.
 
 Neither of these estimators came up in [The Contact Hypothesis Re-evaluated](https://doi.org/10.1017/bpp.2018.25), though they did in subsequent meta-analyses. However, we try to avoid converting odds ratios or log odds ratios to ∆ whenever possible. As [Gomilla (2021)](https://psycnet.apa.org/record/2020-71596-001) writes, any given odds ratio "can translate into different Cohen’s d values, depending on the probability" of event incidence for the "dependent variable for control group participants" (p. 8).[^6]
 
